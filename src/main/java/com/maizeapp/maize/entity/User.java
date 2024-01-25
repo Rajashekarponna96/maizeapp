@@ -2,6 +2,8 @@ package com.maizeapp.maize.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +29,7 @@ public class User {
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private Address address;
 	
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	
 	private List<Image> image;
 	
 	@OneToOne(cascade = CascadeType.ALL)
@@ -96,7 +98,8 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	public List<Image> getImage() {
 		return image;
 	}

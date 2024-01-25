@@ -18,7 +18,7 @@ public class ImageBuilder {
 		image.setWidth(imageRequest.getWidth());
 		image.setSize(imageRequest.getSize());
 		image.setImageType(imageRequest.getImageType());
-		image.setImageData(imageRequest.getImageData());
+		//image.setImageData(imageRequest.getImageData());
 		image.setUser(imageRequest.getUser());
 		
 		return image;
@@ -34,7 +34,7 @@ public class ImageBuilder {
 		imageResponse.setWidth(image.getWidth());
 		imageResponse.setSize(image.getSize());
 		imageResponse.setImageType(image.getImageType());
-		imageResponse.setImageData(image.getImageData());
+		//imageResponse.setImageData(image.getImageData());
 		imageResponse.setUser(image.getUser());
 		
 		return imageResponse;

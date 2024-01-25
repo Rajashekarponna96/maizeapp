@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
+import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.entity.User;
 
 @Component
@@ -37,13 +38,22 @@ public class UserBuilder {
 		userResponse.setAddress(user.getAddress());
 		userResponse.setRole(user.getRole());
 		
-		List<Long> imgeIds = ArrayList<Long>();
-		for(User userList :user.getImage()) {
-			imgeIds.add(userList.get);
-			}
-		userResponse.setImage(imgeIds);
+		List<Long> imageIds = new ArrayList<Long>();
+		for (Image image : user.getImage()) {
+			imageIds.add(user.getId());
+		}
+		userResponse.setImage(imageIds);
 		
 		return userResponse;
+	}
+	
+	public List<UserResponse> toDoList(List<User> users){
+		List<UserResponse> userResponses = new ArrayList<UserResponse>();
+		for (User userInfo : users) {
+			userResponses.add(toDo(userInfo));
+		}
+		
+		return userResponses;
 	}
 
 }

@@ -13,7 +13,7 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 @Entity
-@Table(name="/image")
+@Table(name="image")
 public class Image {
 	
 	@Id
@@ -26,9 +26,9 @@ public class Image {
 	private String height;
 	private String size;
 	
-	@Lob
-    @Column(name = "image_data", columnDefinition = "LONGBLOB")
-    private byte[] imageData;
+//	@Lob
+//    @Column(name = "image_data", columnDefinition = "LONGBLOB")
+//    private byte[] imageData;
 	
 	@ManyToOne(cascade = CascadeType.ALL, targetEntity = User.class)
 	@JoinColumn(name ="user_id")
@@ -88,24 +88,24 @@ public class Image {
 		this.user = user;
 	}
 
-	public byte[] getImageData() {
-		return imageData;
-	}
+//	public byte[] getImageData() {
+//		return imageData;
+//	}
+//
+//	public void setImageData(byte[] imageData) {
+//		this.imageData = imageData;
+//	}
 
-	public void setImageData(byte[] imageData) {
-		this.imageData = imageData;
-	}
-
-	@Override
-	public String toString() {
-		return "Image [id=" + id + ", name=" + name + ", path=" + path + ", imageType=" + imageType + ", width=" + width
-				+ ", height=" + height + ", size=" + size + ", imageData=" + Arrays.toString(imageData) + ", user="
-				+ user + ", getId()=" + getId() + ", getName()=" + getName() + ", getPath()=" + getPath()
-				+ ", getImageType()=" + getImageType() + ", getWidth()=" + getWidth() + ", getHeight()=" + getHeight()
-				+ ", getSize()=" + getSize() + ", getUser()=" + getUser() + ", getImageData()="
-				+ Arrays.toString(getImageData()) + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
-	}
+//	@Override
+//	public String toString() {
+//		return "Image [id=" + id + ", name=" + name + ", path=" + path + ", imageType=" + imageType + ", width=" + width
+//				+ ", height=" + height + ", size=" + size + ", imageData=" + Arrays.toString(imageData) + ", user="
+//				+ user + ", getId()=" + getId() + ", getName()=" + getName() + ", getPath()=" + getPath()
+//				+ ", getImageType()=" + getImageType() + ", getWidth()=" + getWidth() + ", getHeight()=" + getHeight()
+//				+ ", getSize()=" + getSize() + ", getUser()=" + getUser() + ", getImageData()="
+//				+ Arrays.toString(getImageData()) + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
+//				+ ", toString()=" + super.toString() + "]";
+//	}
 	
 
 }
