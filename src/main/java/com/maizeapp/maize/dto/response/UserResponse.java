@@ -2,8 +2,9 @@ package com.maizeapp.maize.dto.response;
 
 import java.util.List;
 
-import com.maizeapp.maize.dto.request.Image;
+
 import com.maizeapp.maize.entity.Address;
+import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.entity.Role;
 
 public class UserResponse {
@@ -14,7 +15,7 @@ public class UserResponse {
 	private String organization;
 	private Address address;
 	private Role role;
-	private List<Image> image;
+	private List<Long> image;
 	
 	public Long getId() {
 		return id;
@@ -58,12 +59,13 @@ public class UserResponse {
 	public void setRole(Role role) {
 		this.role = role;
 	}
-	public List<Image> getImage() {
+	public List<Long> getImage() {
 		return image;
 	}
-	public void setImage(List<Image> image) {
+	public void setImage(List<Long> image) {
 		this.image = image;
 	}
+	
 	
 	
 
