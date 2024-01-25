@@ -98,8 +98,8 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnore
+//	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//	@JsonIgnore
 	public List<Image> getImage() {
 		return image;
 	}
