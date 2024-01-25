@@ -9,17 +9,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 @Entity
-@Table(name="role")
-public class Role {
-	@Id 
+@Table(name="state")
+public class State {
+	
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
 	private String name;
+	private String code;
 	
-	@OneToMany(mappedBy = "role" ,cascade = CascadeType.ALL)
-	private List<Feature> feature;
+	@OneToMany(mappedBy = "state",cascade = CascadeType.ALL)
+	private List<City> city;
+	
+	@OneToMany(mappedBy="state",cascade=CascadeType.ALL)
+	private List<Address> address;
 
 	public Long getId() {
 		return id;
@@ -37,12 +42,28 @@ public class Role {
 		this.name = name;
 	}
 
-	public List<Feature> getFeature() {
-		return feature;
+	public String getCode() {
+		return code;
 	}
 
-	public void setFeature(List<Feature> feature) {
-		this.feature = feature;
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public List<City> getCity() {
+		return city;
+	}
+
+	public void setCity(List<City> city) {
+		this.city = city;
+	}
+
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
 	}
 	
 	
