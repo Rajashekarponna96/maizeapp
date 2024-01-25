@@ -1,0 +1,32 @@
+ 
+-- Insert data into state table
+INSERT INTO state(id, code, name) VALUES 
+(1, '001', 'Andhra Pradesh'),
+(2, '002', 'Arunachal Pradesh'),
+(3, '003', 'Assam'),
+(4, '004', 'Bihar'),
+(5, '005', 'Chhattisgarh'),
+(6, '006', 'Goa'),
+(7, '007', 'Gujarat'),
+(8, '008', 'Haryana'),
+(9, '009', 'Himachal Pradesh'),
+(10, '0010', 'Jharkhand'),
+(11, '0011', 'Karnataka'),
+(12, '0012', 'Kerala'),
+(13, '0013', 'Madhya Pradesh'),
+(14, '0014', 'Maharashtra'),
+(15, '0015', 'Manipur'),
+(16, '0016', 'Meghalaya'),
+(17, '0017', 'Mizoram'),
+(18, '0018', 'Nagaland'),
+(19, '0019', 'Odisha'),
+(20, '0020', 'Punjab'),
+(21, '0021', 'Rajasthan'),
+(22, '0022', 'Sikkim'),
+(23, '0023', 'Tamil Nadu'),
+(24, '0024', 'Telangana'),
+(25, '0025', 'Tripura'),
+(26, '0026', 'Uttar Pradesh'),
+(27, '0027', 'Uttarakhand'),
+(28, '0028', 'West Bengal');
+ 
