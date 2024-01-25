@@ -1,10 +1,15 @@
 package com.maizeapp.maize.builder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.maizeapp.maize.dto.request.ImageRequest;
 import com.maizeapp.maize.dto.response.ImageResponse;
+import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.entity.Image;
+import com.maizeapp.maize.entity.User;
 
 @Component
 public class ImageBuilder {
@@ -38,6 +43,15 @@ public class ImageBuilder {
 		imageResponse.setUser(image.getUser());
 		
 		return imageResponse;
+	}
+	
+	public List<ImageResponse> toDoList(List<Image> images){
+		List<ImageResponse> imageResponses = new ArrayList<ImageResponse>();
+		for (Image imageInfo : images) {
+			imageResponses.add(toDto(imageInfo));
+		}
+		
+		return imageResponses;
 	}
 
 }
