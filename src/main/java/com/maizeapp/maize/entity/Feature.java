@@ -1,5 +1,7 @@
 package com.maizeapp.maize.entity;
 
+
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,44 +12,41 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="address")
-public class Address {
-	@Id 
+@Table(name="feature")
+public class Feature {
+	
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	@ManyToOne(cascade = CascadeType.ALL,targetEntity = State.class)
-	@JoinColumn(name="state_id")
-	private State state;
-	
-	@ManyToOne(cascade = CascadeType.ALL,targetEntity = City.class)
-	@JoinColumn(name="city_id")
-	private City city;
-
+	private String name;
+	private String code;
+	@ManyToOne(cascade = CascadeType.ALL,targetEntity = Role.class)
+	@JoinColumn(name="role_id")
+	private Role role;
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-	public State getState() {
-		return state;
+	public String getName() {
+		return name;
 	}
-
-	public void setState(State state) {
-		this.state = state;
+	public void setName(String name) {
+		this.name = name;
 	}
-
-	public City getCity() {
-		return city;
+	public String getCode() {
+		return code;
 	}
-
-	public void setCity(City city) {
-		this.city = city;
+	public void setCode(String code) {
+		this.code = code;
 	}
-	
+	public Role getRole() {
+		return role;
+	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
 	
 	
 
