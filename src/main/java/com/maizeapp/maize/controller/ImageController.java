@@ -63,7 +63,7 @@ public class ImageController {
 	
 	
 	@RequestMapping(value="/{userid}/imagelist",method = RequestMethod.GET)
-	private List<Image> ImageList(@PathVariable("userid")Long userid){
+	public List<Image> ImageList(@PathVariable("userid")Long userid){
 		System.out.println("ytyeuydeudyuwydw");
 		System.out.println("userid is "+userid);
 		return imageService.imageList(userid);
