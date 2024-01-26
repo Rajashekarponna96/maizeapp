@@ -16,12 +16,11 @@ import com.maizeapp.maize.service.ImageService;
 
 @Service
 public class ImageServiceImpl implements ImageService {
-	@Autowired
-	private ImageService imageService;
+	
 	@Autowired 
 	private ImageBuilder imageBuilder;
 	@Autowired 
-	private UserRepository userRepository;
+	public UserRepository userRepository;
 	@Autowired
 	private  ImageRepository imageRepository;
 	@Override

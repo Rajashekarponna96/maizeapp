@@ -15,6 +15,9 @@ public class UserBuilder {
 	
 	public User toModel(UserRequest userRequest) {
 		User user = new User();
+		if(userRequest.getId()!=null) {
+			user.setId(userRequest.getId());
+		}
 		user.setUsername(userRequest.getUsername());
 		user.setPhoneNumber(userRequest.getPhoneNumber());
 		user.setEmail(userRequest.getEmail());
@@ -39,11 +42,12 @@ public class UserBuilder {
 		userResponse.setRole(user.getRole());
 		
 		List<Long> imageIds = new ArrayList<Long>();
+		if(user.getImage()!=null) {
 		for (Image image : user.getImage()) {
 			imageIds.add(user.getId());
 		}
 		userResponse.setImage(imageIds);
-		
+		}
 		return userResponse;
 	}
 	

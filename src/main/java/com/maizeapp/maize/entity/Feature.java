@@ -23,6 +23,7 @@ public class Feature {
 	@ManyToOne(cascade = CascadeType.ALL,targetEntity = Role.class)
 	@JoinColumn(name="role_id")
 	private Role role;
+	
 	public Long getId() {
 		return id;
 	}
