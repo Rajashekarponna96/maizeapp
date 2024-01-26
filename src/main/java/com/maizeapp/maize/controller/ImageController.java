@@ -48,7 +48,7 @@ public class ImageController {
             newImage.setHeight(image.getHeight());
             newImage.setWidth(image.getWidth());
             newImage.setSize(image.getSize());
-            newImage.setUser(userRepository.findByUser(userId));
+            newImage.setUser(userId);
 
             // Save image
             imageService.saveImage(image);

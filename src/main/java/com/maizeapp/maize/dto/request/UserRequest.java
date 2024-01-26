@@ -7,6 +7,7 @@ import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.entity.Role;
 
 public class UserRequest {
+	private Long id;
 	private String username;
 	private String email;
 	private String phoneNumber;
@@ -16,6 +17,13 @@ public class UserRequest {
 	private Role role;
 	private List<Image> image;
 	
+	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getUsername() {
 		return username;
 	}
