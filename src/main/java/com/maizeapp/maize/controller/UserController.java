@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.maizeapp.maize.builder.UserBuilder;
+import com.maizeapp.maize.commonexceptions.CommonException;
+import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.service.UserService;
+
 
 @RestController
 @RequestMapping(value = "/user")
@@ -64,5 +67,23 @@ public class UserController {
 		}
 
 	}
+	
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public UserResponse doLogin(@RequestBody UserRequest infoRequest) {
+		validateLoginRequired(infoRequest);
+		return userService.doLogin(infoRequest);
+	}
+
+	
+public void validateLoginRequired(UserRequest infoRequest) {
+		
+		if (infoRequest.password==null) {
+			throw CommonException.CreateException(CommonExceptionMessage.REQUIRED_ATTRIBUTE, "Password");
+		}
+		
+		if (infoRequest.password.isEmpty()) {
+			throw CommonException.CreateException(CommonExceptionMessage.REQUIRED_ATTRIBUTE, "Password");
+		}
+}
 
 }
