@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 	public UserResponse create(UserRequest userRequest) {
 		
 	
-		if (userRepository.findByEmail(userRequest.getEmail()) != null) {
+		if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
 			throw new RuntimeException("user email already exists."); 
 		}
 		User user=userBuilder.toModel(userRequest);
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 	
 	public UserResponse doLogin(UserRequest infoRequest) {
 
-		User userInfo = userRepository.findByUsernameAndPassword(infoRequest.getUsername(),passwordEncrypt.encodePassword(infoRequest.getPassword()));
+		User userInfo = userRepository.findByEmailAndPassword(infoRequest.getEmail(),infoRequest.getPassword());
 		if (userInfo == null) {
 			throw CommonException.CreateException(CommonExceptionMessage.INCORRECT_UserNameAndPassword);
 		}
