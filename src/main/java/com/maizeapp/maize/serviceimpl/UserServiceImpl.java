@@ -7,11 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maizeapp.maize.builder.UserBuilder;
+import com.maizeapp.maize.commonexceptions.CommonException;
+import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.service.UserService;
+import com.maizeapp.maize.util.Base64BasicEncryption;
+
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -19,6 +23,9 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private UserBuilder userBuilder;
+	
+	@Autowired
+	private Base64BasicEncryption passwordEncrypt;
 
 	@Override
 	public UserResponse create(UserRequest userRequest) {
@@ -67,5 +74,16 @@ public class UserServiceImpl implements UserService {
     return userResponse;
 }
 	
-	
+	public UserResponse doLogin(UserRequest infoRequest) {
+
+		User userInfo = userRepository.findByUsernameAndPassword(infoRequest.getUsername(),passwordEncrypt.encodePassword(infoRequest.getPassword()));
+		if (userInfo == null) {
+			throw CommonException.CreateException(CommonExceptionMessage.INCORRECT_UserNameAndPassword);
+		}
+//		if (!userInfo.checkWebModule(infoRequest.getFeature())) {
+//			throw CommonException.CreateException(CommonExceptionMessage.PERMISSION_NOTEXISTS);
+//		}
+		UserResponse response=userBuilder.toDo(userInfo);
+		return response;
+	}	
 }

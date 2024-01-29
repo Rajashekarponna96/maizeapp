@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.maizeapp.maize.builder.ImageBuilder;
+import com.maizeapp.maize.dto.response.ImageResponse;
 import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.ImageRepository;
@@ -32,14 +33,14 @@ public class ImageServiceImpl implements ImageService {
 	public List<Image> imageList(Long userid) {
 		Optional<User> userOptional = userRepository.findById(userid);
 
-	    if (userOptional.isPresent()) {
+	    if (!userOptional.isPresent()) {
+	    	throw new RuntimeException("userId is exist"); 
+	    }
 	        User user = userOptional.get();
 	        List<Image> images = imageRepository.findByUser(user);
+	        
 	        return images;
-	    } else {
-	        System.out.println("User with ID " + userid + " not found.");
-	        return Collections.emptyList(); 
-	    }
+	    
 
 	}
 	

@@ -6,13 +6,14 @@ import com.maizeapp.maize.entity.Address;
 import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.entity.Role;
 
+
 public class UserRequest {
 	private Long id;
 	private String username;
 	private String email;
 	private String phoneNumber;
 	private String organization;
-	private String password;
+	public String password;
 	private Address address;
 	private Role role;
 	private List<Image> image;
@@ -73,7 +74,4 @@ public class UserRequest {
 		this.image = image;
 	}
 	
-	
-	
-
 }
