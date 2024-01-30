@@ -2,9 +2,9 @@ package com.maizeapp.maize.service;
 
 import java.util.List;
 
+import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
-import com.maizeapp.maize.entity.User;
 
 public interface UserService {
 
@@ -14,8 +14,11 @@ public interface UserService {
 
 	public void delete(Long id);
 
-	public UserResponse updateUser(UserRequest userRequest,Long id); 
-	
+	public UserResponse updateUser(UserRequest userRequest, Long id);
+
 	public UserResponse doLogin(UserRequest infoRequest);
+	
+	 void changePassword(Long userId, ChangePassword changePasswordRequest);
+
 
 }

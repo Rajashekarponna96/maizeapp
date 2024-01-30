@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
+import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.service.UserService;
@@ -34,6 +36,10 @@ public class UserController {
 
 	}
 
+    @PutMapping("/{userId}/password")
+    public void changePassword(@PathVariable("userId") Long userId, @RequestBody ChangePassword changePasswordRequest) {
+        userService.changePassword(userId, changePasswordRequest);
+    }
 	private void validateRequiredAttibutes(UserRequest userRequest) {
 		if (userRequest.getUsername() == null) {
 			throw new RuntimeException("username is mandatory.");
