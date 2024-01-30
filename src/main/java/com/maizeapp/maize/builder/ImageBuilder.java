@@ -18,11 +18,11 @@ public class ImageBuilder {
 		
 		Image image=new Image();
 		image.setName(imageRequest.getName());
-		image.setPath(imageRequest.getPath());
-		image.setHeight(imageRequest.getHeight());
-		image.setWidth(imageRequest.getWidth());
-		image.setSize(imageRequest.getSize());
-		image.setImageType(imageRequest.getImageType());
+//		image.setPath(imageRequest.getPath());
+//		image.setHeight(imageRequest.getHeight());
+//		image.setWidth(imageRequest.getWidth());
+//		image.setSize(imageRequest.getSize());
+//		image.setImageType(imageRequest.getImageType());
 		//image.setImageData(imageRequest.getImageData());
 		image.setUser(imageRequest.getUser());
 		
@@ -34,11 +34,11 @@ public class ImageBuilder {
 		ImageResponse imageResponse =new ImageResponse();
 		imageResponse.setId(image.getId());
 		imageResponse.setName(image.getName());
-		imageResponse.setPath(image.getPath());
-		imageResponse.setHeight(image.getHeight());
-		imageResponse.setWidth(image.getWidth());
-		imageResponse.setSize(image.getSize());
-		imageResponse.setImageType(image.getImageType());
+		//imageResponse.setPath(image.getPath());
+	//	imageResponse.setHeight(image.getHeight());
+		//imageResponse.setWidth(image.getWidth());
+	//	imageResponse.setSize(image.getSize());
+		//imageResponse.setImageType(image.getImageType());
 		//imageResponse.setImageData(image.getImageData());
 		imageResponse.setUser(image.getUser());
 		
