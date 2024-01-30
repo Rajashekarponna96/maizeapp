@@ -18,7 +18,7 @@ public interface UserService {
 
 	public UserResponse doLogin(UserRequest infoRequest);
 	
-	 void changePassword(Long userId, ChangePassword changePasswordRequest);
+	 void changePassword(String oldPassword,String newPassword);
 
 
 }
