@@ -22,6 +22,7 @@ import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.service.UserService;
 
+
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
@@ -164,28 +165,35 @@ public class UserServiceImpl implements UserService {
 //}
 //
 
-	@Override
-	public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-	    User user = userRepository.findById(userId)
-	            .orElseThrow(() -> new EmptyResultDataAccessException(1));
+//	@Override
+//	public void changePassword(Long userId, ChangePassword changePasswordRequest) {
+//	    User user = userRepository.findById(userId)
+//	            .orElseThrow(() -> new EmptyResultDataAccessException(1));
+//	    
+//	    if(changePasswordRequest.getOldPassword()!=user.getPassword()) {
+//	    	user.setPassword(changePasswordRequest.getNewPassword() );
+//		    userRepository.save(user);
+//	    }else {
+//	    	 throw new InvalidPasswordException("Old password is incorrect");
+//	    }
 
-//	    String oldPassword = encodeBase64(changePasswordRequest.getOldPassword());
-//	    String newPassword = encodeBase64(changePasswordRequest.getNewPassword());
-	    String oldPassword = changePasswordRequest.getOldPassword();
-	    String newPassword = changePasswordRequest.getNewPassword();
-
-	    // Verify old password
-	    if (!oldPassword.equals(user.getPassword())) {
-	        throw new InvalidPasswordException("Old password is incorrect");
-	    }
-
-//	    // Hash the new password
-//	    String hashedNewPassword = hashPassword(changePasswordRequest.getNewPassword());
+////	    String oldPassword = encodeBase64(changePasswordRequest.getOldPassword());
+////	    String newPassword = encodeBase64(changePasswordRequest.getNewPassword());
+//	    String oldPassword = changePasswordRequest.getOldPassword();
+//	    String newPassword = changePasswordRequest.getNewPassword();
 //
-//	    // Update user's password
-	    user.setPassword(newPassword );
-	    userRepository.save(user);
-	}
+//	    // Verify old password
+//	    if (!oldPassword.equals(user.getPassword())) {
+//	        throw new InvalidPasswordException("Old password is incorrect");
+//	    }
+//
+////	    // Hash the new password
+////	    String hashedNewPassword = hashPassword(changePasswordRequest.getNewPassword());
+////
+////	    // Update user's password
+//	    user.setPassword(newPassword );
+//	    userRepository.save(user);
+//	}
 
 	private String encodeBase64(String input) {
 	    return Base64.getEncoder().encodeToString(input.getBytes());
@@ -203,6 +211,19 @@ public class UserServiceImpl implements UserService {
 	        e.printStackTrace();
 	        return null;
 	    }
+	}
+
+	@Override
+	public void changePassword(String oldPassword, String newPassword) {
+		User userInfo = userRepository.findByPassword(oldPassword);		
+		if (userInfo == null) {
+			throw CommonException.CreateException(CommonExceptionMessage.INCORRECT_PIN);
+		}
+		
+		userInfo.setPassword(newPassword);
+
+		userRepository.save(userInfo);
+		
 	}
 
 	

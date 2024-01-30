@@ -36,10 +36,6 @@ public class UserController {
 
 	}
 
-    @PutMapping("/{userId}/password")
-    public void changePassword(@PathVariable("userId") Long userId, @RequestBody ChangePassword changePasswordRequest) {
-        userService.changePassword(userId, changePasswordRequest);
-    }
 	private void validateRequiredAttibutes(UserRequest userRequest) {
 		if (userRequest.getUsername() == null) {
 			throw new RuntimeException("username is mandatory.");
@@ -74,23 +70,37 @@ public class UserController {
 		}
 
 	}
-	
+
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public UserResponse doLogin(@RequestBody UserRequest infoRequest) {
 		validateLoginRequired(infoRequest);
 		return userService.doLogin(infoRequest);
 	}
 
-	
-public void validateLoginRequired(UserRequest infoRequest) {
-		
+	public void validateLoginRequired(UserRequest infoRequest) {
+
 //		if (infoRequest.password==null) {
 //			throw CommonException.CreateException(CommonExceptionMessage.REQUIRED_ATTRIBUTE, "Password");
 //		}
-		
+
 		if (infoRequest.password.isEmpty()) {
 			throw CommonException.CreateException(CommonExceptionMessage.REQUIRED_ATTRIBUTE, "Password");
 		}
-}
+	}
+
+//	@RequestMapping(value = "/password/{userId}",method =RequestMethod.PUT)
+//	public void changePassword(@PathVariable("userId") Long userId, @RequestBody ChangePassword changePasswordRequest) {
+//		userService.changePassword(userId, changePasswordRequest);
+//	}
+	
+	//change password
+		@RequestMapping(value = "/changePassword/{oldPassword}/{newPassword}", method = RequestMethod.POST)
+		public void changePassword(@PathVariable("oldPassword") String oldPassword, @PathVariable("newPassword") String newPassword) {
+		
+			System.out.println("coming here 4");
+			userService.changePassword(oldPassword,newPassword);
+		}
+	
+	
 
 }
