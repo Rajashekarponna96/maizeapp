@@ -13,7 +13,7 @@ import com.maizeapp.maize.service.StateService;
 
 @RestController
 @RequestMapping(value = "/state")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class StateController {
 	@Autowired
 	private StateService stateService;

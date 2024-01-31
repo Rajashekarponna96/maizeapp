@@ -14,7 +14,7 @@ import com.maizeapp.maize.service.CityService;
 
 @RestController
 @RequestMapping(value = "/city")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200")
 public class CityController {
 	@Autowired
 	private CityService cityService;
