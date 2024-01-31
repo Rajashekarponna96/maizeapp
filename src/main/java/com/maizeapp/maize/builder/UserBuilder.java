@@ -26,6 +26,7 @@ public class UserBuilder {
 		user.setAddress(userRequest.getAddress());
 		user.setImage(userRequest.getImage());
 		user.setRole(userRequest.getRole());
+	
 		
 		
 		return user;

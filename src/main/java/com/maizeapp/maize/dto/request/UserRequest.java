@@ -14,6 +14,8 @@ public class UserRequest {
 	private String organization;
 	public String password;
 	private Address address;
+	private String city;
+	private String state;
 	
 	private Role role;
 	private List<Image> image;
@@ -99,5 +101,22 @@ public class UserRequest {
 	public void setImage(List<Image> image) {
 		this.image = image;
 	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+	
 
 }

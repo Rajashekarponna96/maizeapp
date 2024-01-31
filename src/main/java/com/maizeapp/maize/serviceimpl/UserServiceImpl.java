@@ -18,8 +18,14 @@ import com.maizeapp.maize.commonexceptions.InvalidPasswordException;
 import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
+import com.maizeapp.maize.entity.Address;
+import com.maizeapp.maize.entity.City;
+import com.maizeapp.maize.entity.State;
 import com.maizeapp.maize.entity.User;
+import com.maizeapp.maize.repository.AddressRepository;
+import com.maizeapp.maize.repository.CityRepository;
 import com.maizeapp.maize.repository.RoleRepository;
+import com.maizeapp.maize.repository.StateRepository;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.service.UserService;
 
@@ -32,12 +38,13 @@ public class UserServiceImpl implements UserService {
 	private UserBuilder userBuilder;
 	@Autowired
 	private RoleRepository roleRepository;
+	@Autowired
+	private  StateRepository stateRepository;
+	@Autowired
+	private CityRepository cityRepository;
+	@Autowired
+	private AddressRepository addressRepository;
 
-//	@Autowired
-//	private PasswordEncoder passwordEncoder;
-
-//	@Autowired
-//	private Base64BasicEncryption passwordEncrypt;
 
 	@Override
 	public UserResponse create(UserRequest userRequest) {
@@ -46,11 +53,19 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("user email already exists.");
 		}
 		User user = userBuilder.toModel(userRequest);
-		String roleName="END_USER";
+//		String roleName="END_USER";
+//		
+//		user.setRole(roleRepository.findByName(roleName));
 		
-		user.setRole(roleRepository.findByName(roleName));
-
-		// userRepository.save(user);
+//		
+		State state =stateRepository.findByName(userRequest.getState());
+		City city =cityRepository.findByName(userRequest.getCity());
+		Address address= new Address();
+		 address.setState(state);
+		 address.setCity(city);
+		  Address address1=addressRepository.save(address);
+		  user.setAddress(address1);
+		 // userRepository.save(user);
 		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
 		return userResponse;
 
