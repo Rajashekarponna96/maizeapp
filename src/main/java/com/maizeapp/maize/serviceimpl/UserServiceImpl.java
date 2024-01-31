@@ -19,6 +19,7 @@ import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.entity.User;
+import com.maizeapp.maize.repository.RoleRepository;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.service.UserService;
 
@@ -29,6 +30,8 @@ public class UserServiceImpl implements UserService {
 	private UserRepository userRepository;
 	@Autowired
 	private UserBuilder userBuilder;
+	@Autowired
+	private RoleRepository roleRepository;
 
 //	@Autowired
 //	private PasswordEncoder passwordEncoder;
@@ -43,6 +46,9 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("user email already exists.");
 		}
 		User user = userBuilder.toModel(userRequest);
+		String roleName="END_USER";
+		
+		user.setRole(roleRepository.findByName(roleName));
 
 		// userRepository.save(user);
 		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
