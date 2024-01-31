@@ -3,6 +3,8 @@ package com.maizeapp.maize.controller;
 import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +15,7 @@ import com.maizeapp.maize.builder.ImageBuilder;
 import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.serviceimpl.ImageServiceImpl;
-
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/image")
 public class ImageController {
@@ -27,6 +29,11 @@ public class ImageController {
 	@PostMapping("/uploads")
 	public Image uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
 		return imageService.saveImageDetails(file);
+	}
+	
+	@PostMapping("/uploads1/{id}")
+	public Image uploadImage1(@RequestParam("file") MultipartFile file,@PathVariable("id") Long id) throws IOException {
+		return imageService.saveImageDetails1(file,id);
 	}
 
 //	@RequestMapping(value = "/{id}/uploadimage",method = RequestMethod.POST)
