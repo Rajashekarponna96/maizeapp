@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 import javax.imageio.ImageIO;
 
@@ -15,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.maizeapp.maize.builder.ImageBuilder;
 import com.maizeapp.maize.entity.Image;
+import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.ImageRepository;
 import com.maizeapp.maize.repository.UserRepository;
+
 
 @Service
 public class ImageServiceImpl {
@@ -73,5 +76,29 @@ public class ImageServiceImpl {
 	}
 
 	//
+	
+	@Transactional
+	public Image saveImageDetails1(MultipartFile file,Long id) throws IOException {
+		Optional<User> user =userRepository.findById(id);
+		if(!user.isPresent()) {
+			 throw new RuntimeException("user not present.");
+		}
+		Image imageDetails = new Image();
+		imageDetails.setName(file.getOriginalFilename());
+		imageDetails.setWidth(getImageWidth(file));
+		imageDetails.setHeight(getImageHeight(file));
+		imageDetails.setSize(file.getSize());
+		imageDetails.setUser(user.get());
+		// imageDetails.setTimestamp(new Date());
+		// Set user details as needed
+
+		// Save image details to the database
+		imageDetails = imageRepository.save(imageDetails);
+
+		// Save image to the local directory
+		saveImageLocally(file, imageDetails.getId());
+
+		return imageDetails;
+	}
 
 }
