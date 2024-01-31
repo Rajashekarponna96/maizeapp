@@ -1,5 +1,7 @@
 package com.maizeapp.maize.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,11 +17,11 @@ public class Address {
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL,targetEntity = State.class)
 	@JoinColumn(name="state_id")
 	private State state;
-	
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL,targetEntity = City.class)
 	@JoinColumn(name="city_id")
 	private City city;

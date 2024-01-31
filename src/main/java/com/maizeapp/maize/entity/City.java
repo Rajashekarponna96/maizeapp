@@ -2,6 +2,8 @@ package com.maizeapp.maize.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,6 +24,7 @@ public class City {
 	private String name;
 	private String code;
 	
+	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL,targetEntity = State.class)
 	@JoinColumn(name="state_id")
 	private State state;

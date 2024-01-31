@@ -2,6 +2,8 @@ package com.maizeapp.maize.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,10 +21,10 @@ public class State {
 	private Long id;
 	private String name;
 	private String code;
-	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "state",cascade = CascadeType.ALL)
 	private List<City> city;
-	
+	@JsonManagedReference
 	@OneToMany(mappedBy="state",cascade=CascadeType.ALL)
 	private List<Address> address;
 
