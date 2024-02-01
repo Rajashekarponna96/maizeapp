@@ -15,6 +15,29 @@ public class UserRequest {
 	public String password;
 	private Address address;
 	
+	 private String city;  // City name
+	    private String state; // State name
+
+	    // Getters and setters for other fields
+
+	    public String getCity() {
+	        return city;
+	    }
+
+	    public void setCity(String city) {
+	        this.city = city;
+	    }
+
+	    public String getState() {
+	        return state;
+	    }
+
+	    public void setState(String state) {
+	        this.state = state;
+	    }
+	
+	
+	
 	private Role role;
 	private List<Image> image;
 

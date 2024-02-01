@@ -15,16 +15,26 @@ import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
 import com.maizeapp.maize.commonexceptions.InvalidPasswordException;
+import com.maizeapp.maize.dto.request.AddressRequest;
 import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
+import com.maizeapp.maize.entity.Address;
+import com.maizeapp.maize.entity.City;
+import com.maizeapp.maize.entity.Role;
+import com.maizeapp.maize.entity.State;
 import com.maizeapp.maize.entity.User;
+import com.maizeapp.maize.repository.CityRepository;
 import com.maizeapp.maize.repository.RoleRepository;
+import com.maizeapp.maize.repository.StateRepository;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.service.UserService;
 
+import jakarta.transaction.Transactional;
+
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserRepository userRepository;
@@ -32,30 +42,123 @@ public class UserServiceImpl implements UserService {
 	private UserBuilder userBuilder;
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	
+	@Autowired
+	private StateRepository stateRepository;
+	
+	@Autowired
+	private CityRepository cityRepository;
+	
 
+	
 //	@Autowired
 //	private PasswordEncoder passwordEncoder;
 
 //	@Autowired
 //	private Base64BasicEncryption passwordEncrypt;
 
+//	@Override
+//	public UserResponse create(UserRequest userRequest) {
+//
+//		if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+//			throw new RuntimeException("user email already exists.");
+//		}
+//		User user = userBuilder.toModel(userRequest);
+//		String roleName="END_USER";
+//		
+//		user.setRole(roleRepository.findByName(roleName));
+//
+//		// userRepository.save(user);
+//		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
+//		return userResponse;
+//
+//	}
+	
+	//workingone
+//	@Override
+//	public UserResponse create(UserRequest userRequest) {
+//	    // Check if the user already exists
+//	    if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+//	        throw new RuntimeException("User with this email already exists.");
+//	    }
+//
+//	    // Create a new user
+//	    User user = userBuilder.toModel(userRequest);
+//	    
+//	    // Check if the role "END_USER" exists
+//	    Role role = roleRepository.findByName("END_USER");
+//	    if (role == null) {
+//	        // If the role doesn't exist, you might want to handle this scenario
+//	        throw new RuntimeException("Default role 'END_USER' does not exist.");
+//	    }
+//	    
+//	    // Set the user's role to "END_USER"
+//	    user.setRole(role);
+//
+//	    // Save the user to the database
+//	    User savedUser = userRepository.save(user);
+//
+//	    // Convert the saved user to a response object
+//	    UserResponse userResponse = userBuilder.toDo(savedUser);
+//
+//	    return userResponse;
+//	}
+
+	//workingone
+
+
 	@Override
 	public UserResponse create(UserRequest userRequest) {
+	    // Check if the user already exists
+	    if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+	        throw new RuntimeException("User with this email already exists.");
+	    }
 
-		if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
-			throw new RuntimeException("user email already exists.");
-		}
-		User user = userBuilder.toModel(userRequest);
-		String roleName="END_USER";
-		
-		user.setRole(roleRepository.findByName(roleName));
+	    // Create a new user
+	    User user = userBuilder.toModel(userRequest);
+	    
+	    // Get the city name and state name from the UserRequest object
+	    String cityName = userRequest.getCity();
+	    String stateName = userRequest.getState();
 
-		// userRepository.save(user);
-		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
-		return userResponse;
+	    // Use the city name to fetch the City object from the database (assuming you have a cityRepository)
+	    City city = cityRepository.findByName(cityName);
+	    if (city == null) {
+	        throw new RuntimeException("City with name " + cityName + " not found.");
+	    }
 
+	    // Use the state name to fetch the State object from the database (assuming you have a stateRepository)
+	    State state = stateRepository.findByName(stateName);
+	    if (state == null) {
+	        throw new RuntimeException("State with name " + stateName + " not found.");
+	    }
+	    
+	    // Set the user's address with the fetched city and state
+	    Address address = new Address();
+	    address.setCity(city);
+	    address.setState(state);
+	    user.setAddress(address);
+
+	    // Check if the role "END_USER" exists
+	    Role role = roleRepository.findByName("END_USER");
+	    if (role == null) {
+	        // If the role doesn't exist, you might want to handle this scenario
+	        throw new RuntimeException("Default role 'END_USER' does not exist.");
+	    }
+	    
+	    // Set the user's role to "END_USER"
+	    user.setRole(role);
+
+	    // Save the user to the database
+	    User savedUser = userRepository.save(user);
+
+	    // Convert the saved user to a response object
+	    UserResponse userResponse = userBuilder.toDo(savedUser);
+
+	    return userResponse;
 	}
-
+	
 	@Override
 	public List<UserResponse> userList() {
 

@@ -31,26 +31,47 @@ public class UserBuilder {
 		return user;
 	}
 	
-	public UserResponse toDo(User user) {
-		UserResponse userResponse = new UserResponse();
-		userResponse.setId(user.getId());
-		userResponse.setUsername(user.getUsername());
-		userResponse.setPhoneNumber(user.getPhoneNumber());
-		userResponse.setEmail(user.getEmail());
-		userResponse.setOrganization(user.getOrganization());
-		userResponse.setAddress(user.getAddress());
-		userResponse.setRole(user.getRole());
-		
-		List<Long> imageIds = new ArrayList<Long>();
-		if(user.getImage()!=null) {
-		for (Image image : user.getImage()) {
-			imageIds.add(user.getId());
-		}
-		userResponse.setImage(imageIds);
-		}
-		return userResponse;
-	}
+//	public UserResponse toDo(User user) {
+//		UserResponse userResponse = new UserResponse();
+//		userResponse.setId(user.getId());
+//		userResponse.setUsername(user.getUsername());
+//		userResponse.setPhoneNumber(user.getPhoneNumber());
+//		userResponse.setEmail(user.getEmail());
+//		userResponse.setOrganization(user.getOrganization());
+//		userResponse.setAddress(user.getAddress());
+//		userResponse.setRole(user.getRole());
+//		
+//		List<Long> imageIds = new ArrayList<Long>();
+//		if(user.getImage()!=null) {
+//		for (Image image : user.getImage()) {
+//			imageIds.add(user.getId());
+//		}
+//		userResponse.setImage(imageIds);
+//		}
+//		return userResponse;
+//	}
 	
+	public UserResponse toDo(User user) {
+	    UserResponse userResponse = new UserResponse();
+	    userResponse.setId(user.getId());
+	    userResponse.setUsername(user.getUsername());
+	    userResponse.setPhoneNumber(user.getPhoneNumber());
+	    userResponse.setEmail(user.getEmail());
+	    userResponse.setOrganization(user.getOrganization());
+	    userResponse.setAddress(user.getAddress());
+	    userResponse.setRole(user.getRole());
+	    
+	    List<Long> imageIds = new ArrayList<Long>();
+	    if(user.getImage() != null) {
+	        for (Image image : user.getImage()) {
+	            imageIds.add(image.getId()); // Assuming Image has a getId method to retrieve its ID
+	        }
+	    }
+	    userResponse.setImageIds(imageIds); // Corrected method name to setImageIds
+	    
+	    return userResponse;
+	}
+
 	public List<UserResponse> toDoList(List<User> users){
 		List<UserResponse> userResponses = new ArrayList<UserResponse>();
 		for (User userInfo : users) {
