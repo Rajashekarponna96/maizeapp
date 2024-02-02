@@ -12,10 +12,10 @@ import com.maizeapp.maize.entity.User;
 
 @Component
 public class UserBuilder {
-	
+
 	public User toModel(UserRequest userRequest) {
 		User user = new User();
-		if(userRequest.getId()!=null) {
+		if (userRequest.getId() != null) {
 			user.setId(userRequest.getId());
 		}
 		user.setUsername(userRequest.getUsername());
@@ -23,15 +23,16 @@ public class UserBuilder {
 		user.setEmail(userRequest.getEmail());
 		user.setPassword(userRequest.getPassword());
 		user.setOrganization(userRequest.getOrganization());
-		user.setAddress(userRequest.getAddress());
-		user.setImage(userRequest.getImage());
-		user.setRole(userRequest.getRole());
-	
-		
-		
+
+//		user.setAddress(userRequest.getAddress());
+//		user.setImage(userRequest.getImage());
+//		user.setRole(userRequest.getRole());
+//	
+//		
+
 		return user;
 	}
-	
+
 	public UserResponse toDo(User user) {
 		UserResponse userResponse = new UserResponse();
 		userResponse.setId(user.getId());
@@ -41,23 +42,23 @@ public class UserBuilder {
 		userResponse.setOrganization(user.getOrganization());
 		userResponse.setAddress(user.getAddress());
 		userResponse.setRole(user.getRole());
-		
+
 		List<Long> imageIds = new ArrayList<Long>();
-		if(user.getImage()!=null) {
-		for (Image image : user.getImage()) {
-			imageIds.add(user.getId());
-		}
-		userResponse.setImage(imageIds);
+		if (user.getImage() != null) {
+			for (Image image : user.getImage()) {
+				imageIds.add(user.getId());
+			}
+			userResponse.setImage(imageIds);
 		}
 		return userResponse;
 	}
-	
-	public List<UserResponse> toDoList(List<User> users){
+
+	public List<UserResponse> toDoList(List<User> users) {
 		List<UserResponse> userResponses = new ArrayList<UserResponse>();
 		for (User userInfo : users) {
 			userResponses.add(toDo(userInfo));
 		}
-		
+
 		return userResponses;
 	}
 
