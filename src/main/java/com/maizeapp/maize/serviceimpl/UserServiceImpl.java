@@ -53,9 +53,9 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("user email already exists.");
 		}
 		User user = userBuilder.toModel(userRequest);
-//		String roleName="END_USER";
-//		
-//		user.setRole(roleRepository.findByName(roleName));
+		String roleName="END_USER";
+		
+		user.setRole(roleRepository.findByName(roleName));
 		
 		
 		State state =stateRepository.findByName(userRequest.getState());

@@ -21,6 +21,9 @@ public class UserBuilder {
 		user.setUsername(userRequest.getUsername());
 		user.setPhoneNumber(userRequest.getPhoneNumber());
 		user.setEmail(userRequest.getEmail());
+		if(userRequest.getPassword()!=null) {
+			user.setPassword(userRequest.getPassword());
+		}
 		user.setPassword(userRequest.getPassword());
 		user.setOrganization(userRequest.getOrganization());
 //		user.setAddress(userRequest.getAddress());
