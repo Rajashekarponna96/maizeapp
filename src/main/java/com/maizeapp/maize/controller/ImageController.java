@@ -33,7 +33,17 @@ public class ImageController {
 	
 	@PostMapping("/uploads1/{id}")
 	public Image uploadImage1(@RequestParam("file") MultipartFile file,@PathVariable("id") Long id) throws IOException {
+		validateRequiredAttributes(file,id);
 		return imageService.saveImageDetails1(file,id);
+	}
+
+	private void validateRequiredAttributes(MultipartFile file, Long id) {
+		if(id == null) {
+			throw new RuntimeException("userId "+id +"is not found");
+		}
+		if(file.isEmpty()) {
+			throw new RuntimeException(" The file "+file +"has no content");
+		}
 	}
 
 //	@RequestMapping(value = "/{id}/uploadimage",method = RequestMethod.POST)

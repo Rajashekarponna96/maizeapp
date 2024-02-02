@@ -13,22 +13,22 @@ public class UserRequest {
 	private String phoneNumber;
 	private String organization;
 	public String password;
-	private Address address;
+//	private Address address;
 	private String city;
 	private String state;
 	
-	private Role role;
-	private List<Image> image;
+//	private Role role;
+//	private List<Image> image;
 
-	private String ChangePasswordRequest;
-
-	public String getChangePasswordRequest() {
-		return ChangePasswordRequest;
-	}
-
-	public void setChangePasswordRequest(String changePasswordRequest) {
-		ChangePasswordRequest = changePasswordRequest;
-	}
+//	private String ChangePasswordRequest;
+//
+//	public String getChangePasswordRequest() {
+//		return ChangePasswordRequest;
+//	}
+//
+//	public void setChangePasswordRequest(String changePasswordRequest) {
+//		ChangePasswordRequest = changePasswordRequest;
+//	}
 
 	public Long getId() {
 		return id;
@@ -78,29 +78,29 @@ public class UserRequest {
 		this.password = password;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
+//	public Address getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(Address address) {
+//		this.address = address;
+//	}
 
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public List<Image> getImage() {
-		return image;
-	}
-
-	public void setImage(List<Image> image) {
-		this.image = image;
-	}
+//	public Role getRole() {
+//		return role;
+//	}
+//
+//	public void setRole(Role role) {
+//		this.role = role;
+//	}
+//
+//	public List<Image> getImage() {
+//		return image;
+//	}
+//
+//	public void setImage(List<Image> image) {
+//		this.image = image;
+//	}
 
 	public String getCity() {
 		return city;
