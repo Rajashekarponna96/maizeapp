@@ -26,7 +26,17 @@ public class RoleController {
 	
 	@RequestMapping(value ="/{roleName}",method = RequestMethod.GET)
 	public Role getRoleInfo(@PathVariable("roleName") String roleName) {
+		validateRoleName(roleName);
+			
+		
 		return roleService.getRoleInfo(roleName);
+	}
+
+	private void validateRoleName(String roleName) {
+		if(roleName == null) {
+			throw new RuntimeException("roleName "+roleName+"is not found");
+		}
+		
 	}
 
 }

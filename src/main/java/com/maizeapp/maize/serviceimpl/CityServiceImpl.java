@@ -29,6 +29,10 @@ public class CityServiceImpl  implements CityService{
 	@Override
 	public List<City> cityListByName(String statename) {
 		State state = stateRepository.findByName(statename);
+		if(state == null)
+		{
+			throw new RuntimeException("state name  " + statename + " is not found.");
+		}
 		
 		return cityRepository.findByStateId(state.getId());
 	}
@@ -38,7 +42,7 @@ public class CityServiceImpl  implements CityService{
 		Optional<State> state = stateRepository.findById(id);
 		
 		if(state==null) {
-			throw new RuntimeException("user id is not present");
+			throw new RuntimeException("userid " +id+ "is not present");
 		}
 		State state1 =state.get();
 		

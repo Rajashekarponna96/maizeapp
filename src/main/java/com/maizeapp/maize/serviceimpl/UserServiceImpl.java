@@ -57,15 +57,21 @@ public class UserServiceImpl implements UserService {
 //		
 //		user.setRole(roleRepository.findByName(roleName));
 		
-//		
+		
 		State state =stateRepository.findByName(userRequest.getState());
+//		if(state == null) {
+//			throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
+//		}
 		City city =cityRepository.findByName(userRequest.getCity());
+//		if(city == null) {
+//			throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
+//		}
 		Address address= new Address();
 		 address.setState(state);
 		 address.setCity(city);
 		  Address address1=addressRepository.save(address);
 		  user.setAddress(address1);
-		 // userRepository.save(user);
+//		 // userRepository.save(user);
 		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
 		return userResponse;
 

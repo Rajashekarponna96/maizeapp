@@ -23,9 +23,9 @@ public class UserBuilder {
 		user.setEmail(userRequest.getEmail());
 		user.setPassword(userRequest.getPassword());
 		user.setOrganization(userRequest.getOrganization());
-		user.setAddress(userRequest.getAddress());
-		user.setImage(userRequest.getImage());
-		user.setRole(userRequest.getRole());
+//		user.setAddress(userRequest.getAddress());
+//		user.setImage(userRequest.getImage());
+//		user.setRole(userRequest.getRole());
 	
 		
 		
@@ -39,16 +39,16 @@ public class UserBuilder {
 		userResponse.setPhoneNumber(user.getPhoneNumber());
 		userResponse.setEmail(user.getEmail());
 		userResponse.setOrganization(user.getOrganization());
-		userResponse.setAddress(user.getAddress());
-		userResponse.setRole(user.getRole());
-		
-		List<Long> imageIds = new ArrayList<Long>();
-		if(user.getImage()!=null) {
-		for (Image image : user.getImage()) {
-			imageIds.add(user.getId());
-		}
-		userResponse.setImage(imageIds);
-		}
+//		userResponse.setAddress(user.getAddress());
+//		userResponse.setRole(user.getRole());
+//		
+//		List<Long> imageIds = new ArrayList<Long>();
+//		if(user.getImage()!=null) {
+//		for (Image image : user.getImage()) {
+//			imageIds.add(user.getId());
+//		}
+//		userResponse.setImage(imageIds);
+//		}
 		return userResponse;
 	}
 	
