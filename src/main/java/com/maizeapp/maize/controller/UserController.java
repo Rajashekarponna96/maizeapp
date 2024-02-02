@@ -30,7 +30,7 @@ public class UserController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public void createUser(@RequestBody UserRequest userRequest) {
-
+        System.out.println("hi-----------------------");
 		validateRequiredAttibutes(userRequest);
 		userService.create(userRequest);
 

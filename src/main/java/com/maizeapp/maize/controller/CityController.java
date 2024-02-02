@@ -31,4 +31,12 @@ public class CityController {
 		return cityService.cityListByName(statename);
 	}
 	
+	@RequestMapping(value = "/list1/{stateid}", method = RequestMethod.GET)
+	public List<City> listOfCityesByStateId(@PathVariable("stateid") Long  stateid) {
+		
+
+		return cityService.listOfCityesByStateId(stateid);
+	}
+	
+	
 }
