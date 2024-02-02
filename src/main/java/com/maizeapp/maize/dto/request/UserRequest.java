@@ -1,26 +1,24 @@
 package com.maizeapp.maize.dto.request;
 
-import java.util.List;
+import java.io.Serializable;
 
-import com.maizeapp.maize.entity.Address;
-import com.maizeapp.maize.entity.Image;
-import com.maizeapp.maize.entity.Role;
-
-public class UserRequest {
+public class UserRequest implements Serializable {
 	private Long id;
 	private String username;
 	private String email;
 	private String phoneNumber;
 	private String organization;
 	public String password;
-	private Address address;
 	private String city;
 	private String state;
-	
-	private Role role;
-	private List<Image> image;
+//	private List<Image> image;
 
 	private String ChangePasswordRequest;
+
+	public UserRequest() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public String getChangePasswordRequest() {
 		return ChangePasswordRequest;
@@ -78,29 +76,13 @@ public class UserRequest {
 		this.password = password;
 	}
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Role getRole() {
-		return role;
-	}
-
-	public void setRole(Role role) {
-		this.role = role;
-	}
-
-	public List<Image> getImage() {
-		return image;
-	}
-
-	public void setImage(List<Image> image) {
-		this.image = image;
-	}
+//	public List<Image> getImage() {
+//		return image;
+//	}
+//
+//	public void setImage(List<Image> image) {
+//		this.image = image;
+//	}
 
 	public String getCity() {
 		return city;
@@ -117,6 +99,5 @@ public class UserRequest {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
 
 }
