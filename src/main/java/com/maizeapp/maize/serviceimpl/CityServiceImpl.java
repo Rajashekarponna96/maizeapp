@@ -1,6 +1,7 @@
 package com.maizeapp.maize.serviceimpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,18 @@ public class CityServiceImpl  implements CityService{
 		State state = stateRepository.findByName(statename);
 		
 		return cityRepository.findByStateId(state.getId());
+	}
+
+	@Override
+	public List<City> listOfCityesByStateId(Long id) {
+		Optional<State> state = stateRepository.findById(id);
+		
+		if(state==null) {
+			throw new RuntimeException("user id is not present");
+		}
+		State state1 =state.get();
+		
+		return cityRepository.findByStateId(state1.getId());
 	}
 
 }
