@@ -17,26 +17,25 @@ import com.maizeapp.maize.service.RoleService;
 @CrossOrigin
 public class RoleController {
 	@Autowired
-	private RoleService  roleService;
-	
-	@RequestMapping(value = "/list",method = RequestMethod.GET)
-	public  List<Role> imageList(){
+	private RoleService roleService;
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public List<Role> imageList() {
 		return roleService.listOfRole();
 	}
-	
-	@RequestMapping(value ="/{roleName}",method = RequestMethod.GET)
+
+	@RequestMapping(value = "/{roleName}", method = RequestMethod.GET)
 	public Role getRoleInfo(@PathVariable("roleName") String roleName) {
 		validateRoleName(roleName);
-			
-		
+
 		return roleService.getRoleInfo(roleName);
 	}
 
 	private void validateRoleName(String roleName) {
-		if(roleName == null) {
-			throw new RuntimeException("roleName "+roleName+"is not found");
+		if (roleName == null) {
+			throw new RuntimeException("roleName " + roleName + "is not found");
 		}
-		
+
 	}
 
 }

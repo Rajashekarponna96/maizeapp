@@ -9,15 +9,17 @@ import com.maizeapp.maize.entity.User;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	
+
 	Optional<User> findByEmail(String email);
 
 	User findByUsername(String userName);
 
 	User findByUsernameAndPassword(String username, String password);
-	 User findByEmailAndPassword(String email,String password);
-	 User findByPassword(String password);
-	
-	//User findByUser(User user);
+
+	User findByEmailAndPassword(String email, String password);
+
+	User findByPassword(String password);
+
+	// User findByUser(User user);
 
 }

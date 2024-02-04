@@ -15,6 +15,7 @@ import com.maizeapp.maize.builder.ImageBuilder;
 import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.serviceimpl.ImageServiceImpl;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/image")
@@ -30,19 +31,20 @@ public class ImageController {
 	public Image uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
 		return imageService.saveImageDetails(file);
 	}
-	
+
 	@PostMapping("/uploads1/{id}")
-	public Image uploadImage1(@RequestParam("file") MultipartFile file,@PathVariable("id") Long id) throws IOException {
-		validateRequiredAttributes(file,id);
-		return imageService.saveImageDetails1(file,id);
+	public Image uploadImage1(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id)
+			throws IOException {
+		validateRequiredAttributes(file, id);
+		return imageService.saveImageDetails1(file, id);
 	}
 
 	private void validateRequiredAttributes(MultipartFile file, Long id) {
-		if(id == null) {
-			throw new RuntimeException("userId "+id +"is not found");
+		if (id == null) {
+			throw new RuntimeException("userId " + id + "is not found");
 		}
-		if(file.isEmpty()) {
-			throw new RuntimeException(" The file "+file +"has no content");
+		if (file.isEmpty()) {
+			throw new RuntimeException(" The file " + file + "has no content");
 		}
 	}
 

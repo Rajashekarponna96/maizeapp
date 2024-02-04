@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
-import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.service.UserService;
@@ -30,7 +28,7 @@ public class UserController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public void createUser(@RequestBody UserRequest userRequest) {
-        System.out.println("hi-----------------------");
+		System.out.println("hi-----------------------");
 		validateRequiredAttibutes(userRequest);
 		userService.create(userRequest);
 
@@ -92,15 +90,14 @@ public class UserController {
 //	public void changePassword(@PathVariable("userId") Long userId, @RequestBody ChangePassword changePasswordRequest) {
 //		userService.changePassword(userId, changePasswordRequest);
 //	}
-	
-	//change password
-		@RequestMapping(value = "/changePassword/{oldPassword}/{newPassword}", method = RequestMethod.POST)
-		public void changePassword(@PathVariable("oldPassword") String oldPassword, @PathVariable("newPassword") String newPassword) {
-		
-			System.out.println("coming here 4");
-			userService.changePassword(oldPassword,newPassword);
-		}
-	
-	
+
+	// change password
+	@RequestMapping(value = "/changePassword/{oldPassword}/{newPassword}", method = RequestMethod.POST)
+	public void changePassword(@PathVariable("oldPassword") String oldPassword,
+			@PathVariable("newPassword") String newPassword) {
+
+		System.out.println("coming here 4");
+		userService.changePassword(oldPassword, newPassword);
+	}
 
 }

@@ -1,34 +1,29 @@
 package com.maizeapp.maize.serviceimpl;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
-import com.maizeapp.maize.commonexceptions.InvalidPasswordException;
-import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.entity.Address;
 import com.maizeapp.maize.entity.City;
+import com.maizeapp.maize.entity.Feature;
+import com.maizeapp.maize.entity.Role;
 import com.maizeapp.maize.entity.State;
 import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.AddressRepository;
 import com.maizeapp.maize.repository.CityRepository;
+import com.maizeapp.maize.repository.FeatureRepository;
 import com.maizeapp.maize.repository.RoleRepository;
 import com.maizeapp.maize.repository.StateRepository;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.service.UserService;
-
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,12 +34,14 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleRepository roleRepository;
 	@Autowired
-	private  StateRepository stateRepository;
+	private StateRepository stateRepository;
 	@Autowired
 	private CityRepository cityRepository;
 	@Autowired
 	private AddressRepository addressRepository;
 
+	@Autowired
+	private FeatureRepository featureRepository;
 
 	@Override
 	public UserResponse create(UserRequest userRequest) {
@@ -53,24 +50,23 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("user email already exists.");
 		}
 		User user = userBuilder.toModel(userRequest);
-		String roleName="END_USER";
-		
+		String roleName = "END_USER";
+
 		user.setRole(roleRepository.findByName(roleName));
-		
-		
-		State state =stateRepository.findByName(userRequest.getState());
+
+		State state = stateRepository.findByName(userRequest.getState());
 //		if(state == null) {
 //			throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
 //		}
-		City city =cityRepository.findByName(userRequest.getCity());
+		City city = cityRepository.findByName(userRequest.getCity());
 //		if(city == null) {
 //			throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
 //		}
-		Address address= new Address();
-		 address.setState(state);
-		 address.setCity(city);
-		  Address address1=addressRepository.save(address);
-		  user.setAddress(address1);
+		Address address = new Address();
+		address.setState(state);
+		address.setCity(city);
+		Address address1 = addressRepository.save(address);
+		user.setAddress(address1);
 //		 // userRepository.save(user);
 		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
 		return userResponse;
@@ -107,151 +103,75 @@ public class UserServiceImpl implements UserService {
 		return userResponse;
 	}
 
+//  @override
+//	public UserResponse doLogin(UserRequest infoRequest) {
+//
+//		User userInfo = userRepository.findByEmailAndPassword(infoRequest.getEmail(), infoRequest.getPassword());
+//		if (userInfo == null) {
+//			throw CommonException.CreateException(CommonExceptionMessage.INCORRECT_UserNameAndPassword);
+//		}
+//		if (!userInfo.checkWebModule(infoRequest.getFeature())) {
+//			throw CommonException.CreateException(CommonExceptionMessage.PERMISSION_NOTEXISTS);
+//		}
+//		UserResponse response = userBuilder.toDo(userInfo);
+//		return response;
+//	}
+	@Override
 	public UserResponse doLogin(UserRequest infoRequest) {
+		if (infoRequest.getPassword().isEmpty()) {
+			throw CommonException.CreateException(CommonExceptionMessage.REQUIRED_ATTRIBUTE, "Password");
+		}
 
 		User userInfo = userRepository.findByEmailAndPassword(infoRequest.getEmail(), infoRequest.getPassword());
 		if (userInfo == null) {
 			throw CommonException.CreateException(CommonExceptionMessage.INCORRECT_UserNameAndPassword);
 		}
-//		if (!userInfo.checkWebModule(infoRequest.getFeature())) {
-//			throw CommonException.CreateException(CommonExceptionMessage.PERMISSION_NOTEXISTS);
-//		}
+
+		Role userRole = userInfo.getRole();
+		if (userRole == null) {
+			throw CommonException.CreateException(CommonExceptionMessage.ASSIGN_ROLE_EXCEPTION);
+		}
+
+		List<Feature> userFeatures;
+		// Fetch features based on the user's role
+		if (userRole.getId() == 1) {
+			// If the role is 3, return all features
+			userFeatures = featureRepository.findAll();
+		} else {
+			// Fetch features based on the user's role ID
+			userFeatures = featureRepository.findByRoleId(userRole.getId());
+		}
+
 		UserResponse response = userBuilder.toDo(userInfo);
+		response.setFeatures(userFeatures);
 		return response;
-	}
-
-//	@Override
-//	public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-//		User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
-//
-//		String oldPassword = changePasswordRequest.getOldPassword();
-//		String newPassword = changePasswordRequest.getNewPassword();
-//
-//		// Verify old password
-//		if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-//			throw new InvalidPasswordException("Old password is incorrect");
-//		}
-//
-//		// Encrypt the new password
-//		String encryptedPassword = passwordEncoder.encode(newPassword);
-//
-//		// Update user's password
-//		user.setPassword(encryptedPassword);
-//		userRepository.save(user);
-//	}
-
-//
-//@Override
-//public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-//    User user = userRepository.findById(userId)
-//            .orElseThrow(() -> new EmptyResultDataAccessException(1));
-//
-//    String oldPassword = changePasswordRequest.getOldPassword();
-//    String newPassword = changePasswordRequest.getNewPassword();
-//
-//    // Verify old password
-////    if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-////        throw new InvalidPasswordException("Old password is incorrect");
-////    }
-//    if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-//        throw new InvalidPasswordException("Old password is incorrect");
-//    }
-//
-//
-//    // Encrypt the new password
-//    String encryptedPassword = passwordEncoder.encode(newPassword);
-//
-//    // Update user's password
-//    user.setPassword(encryptedPassword);
-//    userRepository.save(user);
-//}
-
-//@Override
-//public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-//    User user = userRepository.findById(userId)
-//            .orElseThrow(() -> new EmptyResultDataAccessException(1));
-//
-//    String oldPassword = encodeBase64(changePasswordRequest.getOldPassword());
-//    String newPassword = encodeBase64(changePasswordRequest.getNewPassword());
-//
-//    // Verify old password
-//    if (!oldPassword.equals(user.getPassword())) {
-//        throw new InvalidPasswordException("Old password is incorrect");
-//    }
-//
-//    // Encrypt the new password
-//    String encryptedPassword = encodeBase64(passwordEncoder.encode(newPassword));
-//
-//    // Update user's password
-//    user.setPassword(encryptedPassword);
-//    userRepository.save(user);
-//}
-//
-//private String encodeBase64(String input) {
-//    return Base64.getEncoder().encodeToString(input.getBytes());
-//}
-//
-
-//	@Override
-//	public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-//	    User user = userRepository.findById(userId)
-//	            .orElseThrow(() -> new EmptyResultDataAccessException(1));
-//	    
-//	    if(changePasswordRequest.getOldPassword()!=user.getPassword()) {
-//	    	user.setPassword(changePasswordRequest.getNewPassword() );
-//		    userRepository.save(user);
-//	    }else {
-//	    	 throw new InvalidPasswordException("Old password is incorrect");
-//	    }
-
-////	    String oldPassword = encodeBase64(changePasswordRequest.getOldPassword());
-////	    String newPassword = encodeBase64(changePasswordRequest.getNewPassword());
-//	    String oldPassword = changePasswordRequest.getOldPassword();
-//	    String newPassword = changePasswordRequest.getNewPassword();
-//
-//	    // Verify old password
-//	    if (!oldPassword.equals(user.getPassword())) {
-//	        throw new InvalidPasswordException("Old password is incorrect");
-//	    }
-//
-////	    // Hash the new password
-////	    String hashedNewPassword = hashPassword(changePasswordRequest.getNewPassword());
-////
-////	    // Update user's password
-//	    user.setPassword(newPassword );
-//	    userRepository.save(user);
-//	}
-
-	private String encodeBase64(String input) {
-	    return Base64.getEncoder().encodeToString(input.getBytes());
-	}
-
-	private String hashPassword(String password) {
-	    // Use a secure hashing algorithm like SHA-256
-	    // Here's an example using SHA-256
-	    try {
-	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-	        byte[] hashBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-	        return Base64.getEncoder().encodeToString(hashBytes);
-	    } catch (NoSuchAlgorithmException e) {
-	        // Handle the exception appropriately
-	        e.printStackTrace();
-	        return null;
-	    }
 	}
 
 	@Override
 	public void changePassword(String oldPassword, String newPassword) {
-		User userInfo = userRepository.findByPassword(oldPassword);		
+		User userInfo = userRepository.findByPassword(oldPassword);
 		if (userInfo == null) {
 			throw CommonException.CreateException(CommonExceptionMessage.INCORRECT_PIN);
 		}
-		
+
 		userInfo.setPassword(newPassword);
 
 		userRepository.save(userInfo);
-		
+
 	}
 
-	
 }
+
+//List<Feature> userFeatures;
+//// Fetch features based on the user's role
+//if (userRole.getId() == 1) {
+//	userFeatures = featureRepository.findByRoleId(1); // Fetch features for role 1
+//} else if (userRole.getId() == 2) {
+//	userFeatures = featureRepository.findByRoleId(2); // Fetch features for role 2
+//} else if (userRole.getId() == 3) {
+//	userFeatures = featureRepository.findByRoleId(3); // Fetch features for role 3
+//} else {
+//	userFeatures = featureRepository.findAll(); // For other roles, fetch all features
+//}
+//ifexample
+//

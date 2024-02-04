@@ -23,37 +23,35 @@ public class CityController {
 	public List<City> listOfCity() {
 		return cityService.cityList();
 	}
-	
-	//get the city list based on state name
-	
+
+	// get the city list based on state name
+
 	@RequestMapping(value = "/list/{statename}", method = RequestMethod.GET)
 	public List<City> listOfCityByName(@PathVariable("statename") String statename) {
 		validateRequiredAttibutes(statename);
 
-		
 		return cityService.cityListByName(statename);
 	}
-	
+
 	private void validateRequiredAttibutes(String statename) {
-		if(statename == null) {
+		if (statename == null) {
 			throw new RuntimeException("State with name " + statename + " is not found.");
 		}
-		
+
 	}
 
 	@RequestMapping(value = "/list1/{stateid}", method = RequestMethod.GET)
-	public List<City> listOfCityesByStateId(@PathVariable("stateid") Long  stateid) {
+	public List<City> listOfCityesByStateId(@PathVariable("stateid") Long stateid) {
 		validateRequiredAttibutesStateid(stateid);
 
 		return cityService.listOfCityesByStateId(stateid);
 	}
 
 	private void validateRequiredAttibutesStateid(Long stateid) {
-		if(stateid == null) {
+		if (stateid == null) {
 			throw new RuntimeException("StateId   " + stateid + "  is not found.");
 		}
-		
+
 	}
-	
-	
+
 }

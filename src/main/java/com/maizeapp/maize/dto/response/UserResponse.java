@@ -2,9 +2,8 @@ package com.maizeapp.maize.dto.response;
 
 import java.util.List;
 
-
 import com.maizeapp.maize.entity.Address;
-import com.maizeapp.maize.entity.Image;
+import com.maizeapp.maize.entity.Feature;
 import com.maizeapp.maize.entity.Role;
 
 public class UserResponse {
@@ -16,58 +15,80 @@ public class UserResponse {
 	private Address address;
 	private Role role;
 	private List<Long> image;
-	
+
+	private List<Feature> features; // Add field for features
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getUsername() {
 		return username;
 	}
+
 	public void setUsername(String username) {
 		this.username = username;
 	}
+
 	public String getEmail() {
 		return email;
 	}
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
+
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+
+	// Getter and setter for features
+	public List<Feature> getFeatures() {
+		return features;
+	}
+
+	public void setFeatures(List<Feature> features) {
+		this.features = features;
+	}
+
 	public String getOrganization() {
 		return organization;
 	}
+
 	public void setOrganization(String organization) {
 		this.organization = organization;
 	}
+
 	public Address getAddress() {
 		return address;
 	}
+
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
 	public Role getRole() {
 		return role;
 	}
+
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
 	public List<Long> getImage() {
 		return image;
 	}
+
 	public void setImage(List<Long> image) {
 		this.image = image;
 	}
-	
-	
-	
-
 
 }

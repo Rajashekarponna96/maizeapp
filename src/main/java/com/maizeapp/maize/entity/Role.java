@@ -9,16 +9,17 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 @Entity
-@Table(name="role")
+@Table(name = "role")
 public class Role {
-	@Id 
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String name;
-	
-	@OneToMany(mappedBy = "role" ,cascade = CascadeType.ALL)
+
+	@OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
 	private List<Feature> feature;
 
 	public Long getId() {
@@ -44,7 +45,5 @@ public class Role {
 	public void setFeature(List<Feature> feature) {
 		this.feature = feature;
 	}
-	
-	
 
 }

@@ -2,7 +2,6 @@ package com.maizeapp.maize.service;
 
 import java.util.List;
 
-import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.UserResponse;
 
@@ -17,8 +16,7 @@ public interface UserService {
 	public UserResponse updateUser(UserRequest userRequest, Long id);
 
 	public UserResponse doLogin(UserRequest infoRequest);
-	
-	 void changePassword(String oldPassword,String newPassword);
 
+	void changePassword(String oldPassword, String newPassword);
 
 }

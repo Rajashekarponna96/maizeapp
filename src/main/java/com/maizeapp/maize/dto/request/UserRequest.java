@@ -1,11 +1,5 @@
 package com.maizeapp.maize.dto.request;
 
-import java.util.List;
-
-import com.maizeapp.maize.entity.Address;
-import com.maizeapp.maize.entity.Image;
-import com.maizeapp.maize.entity.Role;
-
 public class UserRequest {
 	private Long id;
 	private String username;
@@ -13,22 +7,8 @@ public class UserRequest {
 	private String phoneNumber;
 	private String organization;
 	public String password;
-//	private Address address;
 	private String city;
 	private String state;
-	
-//	private Role role;
-//	private List<Image> image;
-
-//	private String ChangePasswordRequest;
-//
-//	public String getChangePasswordRequest() {
-//		return ChangePasswordRequest;
-//	}
-//
-//	public void setChangePasswordRequest(String changePasswordRequest) {
-//		ChangePasswordRequest = changePasswordRequest;
-//	}
 
 	public Long getId() {
 		return id;
@@ -117,6 +97,5 @@ public class UserRequest {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
 
 }

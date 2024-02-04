@@ -20,7 +20,6 @@ import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.ImageRepository;
 import com.maizeapp.maize.repository.UserRepository;
 
-
 @Service
 public class ImageServiceImpl {
 
@@ -76,12 +75,12 @@ public class ImageServiceImpl {
 	}
 
 	//
-	
+
 	@Transactional
-	public Image saveImageDetails1(MultipartFile file,Long id) throws IOException {
-		Optional<User> user =userRepository.findById(id);
-		if(!user.isPresent()) {
-			 throw new RuntimeException("user not present.");
+	public Image saveImageDetails1(MultipartFile file, Long id) throws IOException {
+		Optional<User> user = userRepository.findById(id);
+		if (!user.isPresent()) {
+			throw new RuntimeException("user not present.");
 		}
 		Image imageDetails = new Image();
 		imageDetails.setName(file.getOriginalFilename());
