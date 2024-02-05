@@ -8,4 +8,6 @@ import com.maizeapp.maize.entity.Address;
 @Repository
 public interface AddressRepository  extends JpaRepository<Address, Long>{
 
+	
+
 }

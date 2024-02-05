@@ -42,16 +42,16 @@ public class UserBuilder {
 		userResponse.setPhoneNumber(user.getPhoneNumber());
 		userResponse.setEmail(user.getEmail());
 		userResponse.setOrganization(user.getOrganization());
-//		userResponse.setAddress(user.getAddress());
-//		userResponse.setRole(user.getRole());
-//		
-//		List<Long> imageIds = new ArrayList<Long>();
-//		if(user.getImage()!=null) {
-//		for (Image image : user.getImage()) {
-//			imageIds.add(user.getId());
-//		}
-//		userResponse.setImage(imageIds);
-//		}
+		userResponse.setAddress(user.getAddress());
+		userResponse.setRole(user.getRole());
+		
+		List<Long> imageIds = new ArrayList<Long>();
+		if(user.getImage()!=null) {
+		for (Image image : user.getImage()) {
+			imageIds.add(user.getId());
+		}
+		userResponse.setImage(imageIds);
+		}
 		return userResponse;
 	}
 	
