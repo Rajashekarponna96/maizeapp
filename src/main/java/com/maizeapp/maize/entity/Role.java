@@ -2,6 +2,8 @@ package com.maizeapp.maize.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ public class Role {
 	private Long id;
 	
 	private String name;
-	
+	@JsonIgnore
 	@OneToMany(mappedBy = "role" ,cascade = CascadeType.ALL)
 	private List<Feature> feature;
 
