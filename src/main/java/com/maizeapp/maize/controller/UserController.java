@@ -29,7 +29,7 @@ public class UserController {
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public void createUser(@RequestBody UserRequest userRequest) {
-        System.out.println("hi-----------------------");
+		System.out.println("hi-----------------------");
 		validateRequiredAttibutes(userRequest);
 		userService.create(userRequest);
 
@@ -91,21 +91,21 @@ public class UserController {
 //	public void changePassword(@PathVariable("userId") Long userId, @RequestBody ChangePassword changePasswordRequest) {
 //		userService.changePassword(userId, changePasswordRequest);
 //	}
-	
-	//change password
-		@RequestMapping(value = "/changePassword/{oldPassword}/{newPassword}", method = RequestMethod.POST)
-		public void changePassword(@PathVariable("oldPassword") String oldPassword, @PathVariable("newPassword") String newPassword) {
-		
-			System.out.println("coming here 4");
-			userService.changePassword(oldPassword,newPassword);
-		}
-	
-		@RequestMapping(value = "/{userid}/features",method = RequestMethod.GET)
-		public List<FeatureResponse> userFeatures(@PathVariable("userid")Long userId) {
-			List<FeatureResponse>	featureResponses=userService.userFeatures(userId);
-			//System.out.println(featureResponses.get(0).getName());
-			return featureResponses;
-		}
-	
+
+	// change password
+	@RequestMapping(value = "/changePassword/{oldPassword}/{newPassword}", method = RequestMethod.POST)
+	public void changePassword(@PathVariable("oldPassword") String oldPassword,
+			@PathVariable("newPassword") String newPassword) {
+
+		System.out.println("coming here 4");
+		userService.changePassword(oldPassword, newPassword);
+	}
+
+	@RequestMapping(value = "/{userid}/features", method = RequestMethod.GET)
+	public List<FeatureResponse> userFeatures(@PathVariable("userid") Long userId) {
+		List<FeatureResponse> featureResponses = userService.userFeatures(userId);
+		// System.out.println(featureResponses.get(0).getName());
+		return featureResponses;
+	}
 
 }
