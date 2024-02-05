@@ -3,6 +3,8 @@ package com.maizeapp.maize.dto.request;
 import com.maizeapp.maize.entity.Role;
 
 public class FeatureRequest {
+	
+	private Long Id;
 
 	private String name;
 
@@ -34,4 +36,13 @@ public class FeatureRequest {
 		this.role = role;
 	}
 
+	public Long getId() {
+		return Id;
+	}
+
+	public void setId(Long id) {
+		Id = id;
+	}
+
+	
 }
