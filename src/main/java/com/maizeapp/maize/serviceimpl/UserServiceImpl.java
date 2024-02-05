@@ -3,6 +3,7 @@ package com.maizeapp.maize.serviceimpl;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
@@ -11,19 +12,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.maizeapp.maize.builder.FeatureBuilder;
 import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
 import com.maizeapp.maize.commonexceptions.InvalidPasswordException;
 import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
+import com.maizeapp.maize.dto.response.FeatureResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.entity.Address;
 import com.maizeapp.maize.entity.City;
+import com.maizeapp.maize.entity.Feature;
 import com.maizeapp.maize.entity.State;
 import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.AddressRepository;
 import com.maizeapp.maize.repository.CityRepository;
+import com.maizeapp.maize.repository.FeatureRepository;
 import com.maizeapp.maize.repository.RoleRepository;
 import com.maizeapp.maize.repository.StateRepository;
 import com.maizeapp.maize.repository.UserRepository;
@@ -44,8 +49,11 @@ public class UserServiceImpl implements UserService {
 	private CityRepository cityRepository;
 	@Autowired
 	private AddressRepository addressRepository;
-
-
+    @Autowired
+    private FeatureRepository featureRepository;
+    @Autowired
+    private FeatureBuilder featureBuilder;
+    
 	@Override
 	public UserResponse create(UserRequest userRequest) {
 
@@ -251,6 +259,21 @@ public class UserServiceImpl implements UserService {
 
 		userRepository.save(userInfo);
 		
+	}
+
+	@Override
+	public List<FeatureResponse> userFeatures(Long userId) {
+		Optional<User> user = userRepository.findById(userId);
+		if(user ==null) {
+			
+			throw new RuntimeException("User" +userId +"is not found");
+		}
+		User user1 = user.get();
+		System.out.println(user1.getRole().getId());
+		List<Feature> feature=featureRepository.findByRoleId(user1.getRole().getId());
+		List<FeatureResponse> featurelist= featureBuilder.toDoList(feature);
+		System.out.println(featurelist.get(0).getName());
+		return featurelist;
 	}
 
 	
