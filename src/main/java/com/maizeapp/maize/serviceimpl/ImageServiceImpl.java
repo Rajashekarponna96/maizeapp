@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
@@ -34,11 +35,12 @@ public class ImageServiceImpl {
 	@Autowired
 	private ImageRepository imageRepository;
 
-	//
-
-//	@Autowired
-//	private ImgaeRepository imageRepository;
-
+	
+	// @Override
+	    public List<Image> getUserImages(Long userId) {
+	        return imageRepository.findByUserId(userId);
+	    }
+ 
 	@Transactional
 	public Image saveImageDetails(MultipartFile file) throws IOException {
 		Image imageDetails = new Image();

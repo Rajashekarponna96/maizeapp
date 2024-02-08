@@ -7,5 +7,7 @@ import com.maizeapp.maize.entity.Image;
 public interface ImageService {
 	public String saveImage(Image image);
 	public List<Image> imageList(Long userid);
+	
+	 List<Image> getUserImages(Long userId);
 
 }
