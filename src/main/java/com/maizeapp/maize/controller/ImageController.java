@@ -9,11 +9,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.maizeapp.maize.builder.ImageBuilder;
+import com.maizeapp.maize.dto.response.ImageResponse;
 import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.serviceimpl.ImageServiceImpl;
@@ -86,9 +88,9 @@ public class ImageController {
 //} 
 //	
 //	
-//	@RequestMapping(value="/{userid}/imagelist",method = RequestMethod.GET)
-//	public List<Image> ImageList(@PathVariable("userid")Long userid){
-//		return imageService.imageList(userid);
-//		
-//	}
+	@RequestMapping(value="/list",method = RequestMethod.GET)
+	public List<ImageResponse> ImageList(){
+		return imageService.imageList();
+		
+	}
 }
