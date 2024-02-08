@@ -26,13 +26,14 @@ public class User {
 	private String phoneNumber;
 	private String organization;
 	private String password;
+	@JsonIgnore
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id", referencedColumnName = "id")
 	private Address address;
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	private List<Image> image;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="role_id",referencedColumnName = "id")
 	private Role role;

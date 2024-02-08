@@ -17,18 +17,18 @@ public class UserRequest {
 	private String city;
 	private String state;
 	
-//	private Role role;
-//	private List<Image> image;
+	private Role role;
+	private List<Image> image;
 
-//	private String ChangePasswordRequest;
-//
-//	public String getChangePasswordRequest() {
-//		return ChangePasswordRequest;
-//	}
-//
-//	public void setChangePasswordRequest(String changePasswordRequest) {
-//		ChangePasswordRequest = changePasswordRequest;
-//	}
+	private String ChangePasswordRequest;
+
+	public String getChangePasswordRequest() {
+		return ChangePasswordRequest;
+	}
+
+	public void setChangePasswordRequest(String changePasswordRequest) {
+		ChangePasswordRequest = changePasswordRequest;
+	}
 
 	public Long getId() {
 		return id;
@@ -85,22 +85,21 @@ public class UserRequest {
 //	public void setAddress(Address address) {
 //		this.address = address;
 //	}
+	public Role getRole() {
+		return role;
+	}
 
-//	public Role getRole() {
-//		return role;
-//	}
-//
-//	public void setRole(Role role) {
-//		this.role = role;
-//	}
-//
-//	public List<Image> getImage() {
-//		return image;
-//	}
-//
-//	public void setImage(List<Image> image) {
-//		this.image = image;
-//	}
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public List<Image> getImage() {
+		return image;
+	}
+
+	public void setImage(List<Image> image) {
+		this.image = image;
+	}
 
 	public String getCity() {
 		return city;

@@ -3,21 +3,17 @@ package com.maizeapp.maize.serviceimpl;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.maizeapp.maize.builder.FeatureBuilder;
 import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
-import com.maizeapp.maize.commonexceptions.InvalidPasswordException;
-import com.maizeapp.maize.dto.request.ChangePassword;
 import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.FeatureResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
@@ -34,7 +30,6 @@ import com.maizeapp.maize.repository.StateRepository;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.service.UserService;
 
-
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
@@ -44,16 +39,16 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private RoleRepository roleRepository;
 	@Autowired
-	private  StateRepository stateRepository;
+	private StateRepository stateRepository;
 	@Autowired
 	private CityRepository cityRepository;
 	@Autowired
 	private AddressRepository addressRepository;
-    @Autowired
-    private FeatureRepository featureRepository;
-    @Autowired
-    private FeatureBuilder featureBuilder;
-    
+	@Autowired
+	private FeatureRepository featureRepository;
+	@Autowired
+	private FeatureBuilder featureBuilder;
+
 	@Override
 	public UserResponse create(UserRequest userRequest) {
 
@@ -61,24 +56,23 @@ public class UserServiceImpl implements UserService {
 			throw new RuntimeException("user email already exists.");
 		}
 		User user = userBuilder.toModel(userRequest);
-		String roleName="END_USER";
-		
+		String roleName = "END_USER";
+
 		user.setRole(roleRepository.findByName(roleName));
-		
-		
-		State state =stateRepository.findByName(userRequest.getState());
+
+		State state = stateRepository.findByName(userRequest.getState());
 //		if(state == null) {
 //			throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
 //		}
-		City city =cityRepository.findByName(userRequest.getCity());
+		City city = cityRepository.findByName(userRequest.getCity());
 //		if(city == null) {
 //			throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
 //		}
-		Address address= new Address();
-		 address.setState(state);
-		 address.setCity(city);
-		  Address address1=addressRepository.save(address);
-		  user.setAddress(address1);
+		Address address = new Address();
+		address.setState(state);
+		address.setCity(city);
+		Address address1 = addressRepository.save(address);
+		user.setAddress(address1);
 //		 // userRepository.save(user);
 		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
 		return userResponse;
@@ -100,21 +94,67 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
+	// @Override
+//	public UserResponse updateUser(UserRequest userRequest, Long id) {
+//
+//		Optional<User> existingUserOptional = userRepository.findById(userRequest.getId());
+//
+//		if (!existingUserOptional.isPresent()) {
+//			throw new RuntimeException("user is not exiting");
+//		}
+//
+//		User user = userBuilder.toModel(userRequest);
+//		User updatedUser = userRepository.save(user);
+//		UserResponse userResponse = userBuilder.toDo(updatedUser);
+//		return userResponse;
+//	}
 	@Override
 	public UserResponse updateUser(UserRequest userRequest, Long id) {
-
-		Optional<User> existingUserOptional = userRepository.findById(userRequest.getId());
+		Optional<User> existingUserOptional = userRepository.findById(id);
 
 		if (!existingUserOptional.isPresent()) {
-			throw new RuntimeException("user is not exiting");
+			throw new RuntimeException("User is not existing");
 		}
 
-		User user = userBuilder.toModel(userRequest);
-		User updatedUser = userRepository.save(user);
-		UserResponse userResponse = userBuilder.toDo(updatedUser);
-		return userResponse;
+		User existingUser = existingUserOptional.get();
+
+		existingUser.setUsername(userRequest.getUsername());
+		existingUser.setEmail(userRequest.getEmail());
+		existingUser.setPhoneNumber(userRequest.getPhoneNumber());
+		existingUser.setOrganization(userRequest.getOrganization());
+
+		if (userRequest.getRole() != null) {
+			existingUser.setRole(userRequest.getRole());
+		}
+
+		if (userRequest.getState() != null || userRequest.getCity() != null) {
+			Address address = existingUser.getAddress();
+			if (address == null) {
+				address = new Address();
+				existingUser.setAddress(address);
+			}
+			if (userRequest.getState() != null) {
+				State state = stateRepository.findByName(userRequest.getState());
+				if (state == null) {
+					throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
+				}
+				address.setState(state);
+			}
+			if (userRequest.getCity() != null) {
+				City city = cityRepository.findByName(userRequest.getCity());
+				if (city == null) {
+					throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
+				}
+				address.setCity(city);
+			}
+			addressRepository.save(address);
+		}
+
+		User savedUser = userRepository.save(existingUser);
+		return userBuilder.toDo(savedUser);
 	}
 
+	@Override
 	public UserResponse doLogin(UserRequest infoRequest) {
 
 		User userInfo = userRepository.findByEmailAndPassword(infoRequest.getEmail(), infoRequest.getPassword());
@@ -231,50 +271,49 @@ public class UserServiceImpl implements UserService {
 //	}
 
 	private String encodeBase64(String input) {
-	    return Base64.getEncoder().encodeToString(input.getBytes());
+		return Base64.getEncoder().encodeToString(input.getBytes());
 	}
 
 	private String hashPassword(String password) {
-	    // Use a secure hashing algorithm like SHA-256
-	    // Here's an example using SHA-256
-	    try {
-	        MessageDigest digest = MessageDigest.getInstance("SHA-256");
-	        byte[] hashBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-	        return Base64.getEncoder().encodeToString(hashBytes);
-	    } catch (NoSuchAlgorithmException e) {
-	        // Handle the exception appropriately
-	        e.printStackTrace();
-	        return null;
-	    }
+		// Use a secure hashing algorithm like SHA-256
+		// Here's an example using SHA-256
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			byte[] hashBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+			return Base64.getEncoder().encodeToString(hashBytes);
+		} catch (NoSuchAlgorithmException e) {
+			// Handle the exception appropriately
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
 	public void changePassword(String oldPassword, String newPassword) {
-		User userInfo = userRepository.findByPassword(oldPassword);		
+		User userInfo = userRepository.findByPassword(oldPassword);
 		if (userInfo == null) {
 			throw CommonException.CreateException(CommonExceptionMessage.INCORRECT_PIN);
 		}
-		
+
 		userInfo.setPassword(newPassword);
 
 		userRepository.save(userInfo);
-		
+
 	}
 
 	@Override
 	public List<FeatureResponse> userFeatures(Long userId) {
 		Optional<User> user = userRepository.findById(userId);
-		if(user ==null) {
-			
-			throw new RuntimeException("User" +userId +"is not found");
+		if (user == null) {
+
+			throw new RuntimeException("User" + userId + "is not found");
 		}
 		User user1 = user.get();
 		System.out.println(user1.getRole().getId());
-		List<Feature> feature=featureRepository.findByRoleId(user1.getRole().getId());
-		List<FeatureResponse> featurelist= featureBuilder.toDoList(feature);
+		List<Feature> feature = featureRepository.findByRoleId(user1.getRole().getId());
+		List<FeatureResponse> featurelist = featureBuilder.toDoList(feature);
 		System.out.println(featurelist.get(0).getName());
 		return featurelist;
 	}
 
-	
 }

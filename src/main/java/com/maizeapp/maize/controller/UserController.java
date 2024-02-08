@@ -57,8 +57,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public UserResponse userUpdate(@RequestBody UserRequest userRequest, @PathVariable("id") Long id) {
-
+	public UserResponse updateUser(@RequestBody UserRequest userRequest, @PathVariable("id") Long id) {
 		userUpdateValidations(userRequest);
 		return userService.updateUser(userRequest, id);
 	}
