@@ -9,7 +9,8 @@ import com.maizeapp.maize.entity.User;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
 List<Image> findByUser(User long1);
-	
+
+List<Image> findByUserId(Long userId);
 	 
 	
 

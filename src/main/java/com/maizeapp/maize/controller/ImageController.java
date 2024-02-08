@@ -1,9 +1,11 @@
 package com.maizeapp.maize.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,13 @@ public class ImageController {
 	private ImageBuilder imageBuilder;
 	@Autowired
 	private UserRepository userRepository;
+	
+	
+	
+	@GetMapping("/users/{userId}/images")
+	    public List<Image> getUserImages(@PathVariable("userId") Long userId) {
+	        return imageService.getUserImages(userId);
+	    }
 
 	@PostMapping("/uploads")
 	public Image uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
