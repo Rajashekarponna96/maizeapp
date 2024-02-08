@@ -6,14 +6,12 @@ public class ImageRequest {
 	
 	private String name;
 	private String path;
-	private String imageType;
-	private String width;
-	private String height;
-	private String size;
-	private byte[] imageData;
+//	private String imageType;
+	private int width;
+	private int height;
+	private long size;
+//  private byte[] imageData;
 	private User user;
-	
-	
 	public String getName() {
 		return name;
 	}
@@ -26,35 +24,23 @@ public class ImageRequest {
 	public void setPath(String path) {
 		this.path = path;
 	}
-	public String getImageType() {
-		return imageType;
-	}
-	public void setImageType(String imageType) {
-		this.imageType = imageType;
-	}
-	public String getWidth() {
+	public int getWidth() {
 		return width;
 	}
-	public void setWidth(String width) {
+	public void setWidth(int width) {
 		this.width = width;
 	}
-	public String getHeight() {
+	public int getHeight() {
 		return height;
 	}
-	public void setHeight(String height) {
+	public void setHeight(int height) {
 		this.height = height;
 	}
-	public String getSize() {
+	public long getSize() {
 		return size;
 	}
-	public void setSize(String size) {
+	public void setSize(long size) {
 		this.size = size;
-	}
-	public byte[] getImageData() {
-		return imageData;
-	}
-	public void setImageData(byte[] imageData) {
-		this.imageData = imageData;
 	}
 	public User getUser() {
 		return user;
@@ -64,6 +50,6 @@ public class ImageRequest {
 	}
 	
 	
-	
+		
 
 }

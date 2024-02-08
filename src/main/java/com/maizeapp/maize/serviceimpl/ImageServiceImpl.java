@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 import javax.imageio.ImageIO;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.maizeapp.maize.builder.ImageBuilder;
+import com.maizeapp.maize.dto.response.ImageResponse;
 import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.ImageRepository;
@@ -99,6 +101,14 @@ public class ImageServiceImpl {
 		saveImageLocally(file, imageDetails.getId());
 
 		return imageDetails;
+	}
+	
+	public List<ImageResponse> imageList() {
+		List<Image> imageList = imageRepository.findAll();
+		List<ImageResponse> imageListResponse = imageBuilder.toDoList(imageList);
+		
+		return imageListResponse;
+		
 	}
 
 }
