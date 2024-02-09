@@ -3,6 +3,8 @@ package com.maizeapp.maize.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
 import com.maizeapp.maize.dto.request.UserRequest;
+import com.maizeapp.maize.dto.response.AddressResponse;
 import com.maizeapp.maize.dto.response.FeatureResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.service.UserService;
@@ -26,6 +29,23 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserBuilder userBuilder;
+
+	
+	
+//	@RequestMapping(value = "/{userId}/address/{addressId}", method = RequestMethod.GET)
+//	public ResponseEntity<AddressResponse> getUserAddressByUserIdAndAddressId(
+//	        @PathVariable("userId") Long userId, @PathVariable("addressId") Long addressId) {
+//	    AddressResponse addressResponse = userService.getUserAddressByUserIdAndAddressId(userId, addressId);
+//	    return new ResponseEntity<>(addressResponse, HttpStatus.OK);
+//	}
+
+	
+	
+	@RequestMapping(value = "/address/{userId}", method = RequestMethod.GET)
+	public ResponseEntity<AddressResponse> getUserAddress(@PathVariable("userId") Long userId) {
+	    AddressResponse addressResponse = userService.getUserAddress(userId);
+	    return new ResponseEntity<>(addressResponse, HttpStatus.OK);
+	}
 
 	@RequestMapping(value = "/", method = RequestMethod.POST)
 	public void createUser(@RequestBody UserRequest userRequest) {
@@ -56,7 +76,7 @@ public class UserController {
 		userService.delete(id);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/userupdate/{id}", method = RequestMethod.PUT)
 	public UserResponse updateUser(@RequestBody UserRequest userRequest, @PathVariable("id") Long id) {
 		userUpdateValidations(userRequest);
 		return userService.updateUser(userRequest, id);

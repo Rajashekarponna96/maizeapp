@@ -1,27 +1,36 @@
 package com.maizeapp.maize.dto.response;
 
-import java.util.List;
-
-import com.maizeapp.maize.entity.Address;
-import com.maizeapp.maize.entity.City;
-
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
 public class StateResponse {
 
 	private Long id;
 
 	private String name;
 
-	private String code;
+//	private List<CityResponse> city;
+//
+//	private List<AddressResponse> address;
 
-	private List<City> city;
+//	public List<CityResponse> getCity() {
+//		return city;
+//	}
 
-	private List<Address> address;
+//	public void setCity(List<CityResponse> city) {
+//		this.city = city;
+//	}
+//
+//	public List<AddressResponse> getAddress() {
+//		return address;
+//	}
+
+//	public void setAddress(List<AddressResponse> address) {
+//		this.address = address;
+//	}
+//	public void setAddress(List<AddressResponse> address) {
+//        this.address = address;
+//    }
+//	public void setAddress(List<AddressResponse> address) {
+//		this.address = address;
+//	}
 
 	public Long getId() {
 		return id;
@@ -37,30 +46,6 @@ public class StateResponse {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
-	public List<City> getCity() {
-		return city;
-	}
-
-	public void setCity(List<City> city) {
-		this.city = city;
-	}
-
-	public List<Address> getAddress() {
-		return address;
-	}
-
-	public void setAddress(List<Address> address) {
-		this.address = address;
 	}
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,14 +27,19 @@ public class CityController {
 	
 	//get the city list based on state name
 	
-	@RequestMapping(value = "/list/{statename}", method = RequestMethod.GET)
-	public List<City> listOfCityByName(@PathVariable("statename") String statename) {
-		validateRequiredAttibutes(statename);
-
-		
-		return cityService.cityListByName(statename);
-	}
-	
+//	@RequestMapping(value = "/list/{statename}", method = RequestMethod.GET)
+//	public List<City> listOfCityByName(@PathVariable("statename") String statename) {
+//		validateRequiredAttibutes(statename);
+//
+//		
+//		return cityService.cityListByName(statename);
+//	}
+//	
+	 @GetMapping("/list/{statename}")
+	    public List<City> listOfCityByName(@PathVariable("statename") String statename) {
+	     
+	        return cityService.cityListByName(statename);
+	    }
 	private void validateRequiredAttibutes(String statename) {
 		if(statename == null) {
 			throw new RuntimeException("State with name " + statename + " is not found.");

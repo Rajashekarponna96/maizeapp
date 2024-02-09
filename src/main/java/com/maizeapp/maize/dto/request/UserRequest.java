@@ -18,7 +18,7 @@ public class UserRequest {
 	private String state;
 	
 	private Role role;
-	private List<Image> image;
+//	private List<Image> image;
 
 	private String ChangePasswordRequest;
 
@@ -93,13 +93,13 @@ public class UserRequest {
 		this.role = role;
 	}
 
-	public List<Image> getImage() {
-		return image;
-	}
-
-	public void setImage(List<Image> image) {
-		this.image = image;
-	}
+//	public List<Image> getImage() {
+//		return image;
+//	}
+//
+//	public void setImage(List<Image> image) {
+//		this.image = image;
+//	}
 
 	public String getCity() {
 		return city;
