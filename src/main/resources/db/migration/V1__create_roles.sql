@@ -1,5 +1,3 @@
- INSERT INTO role (name) VALUES 
-  ('Admin'),
-  ('SUPER_Admin'),
-  ('END_USER');
- 
+INSERT INTO role(id,name) VALUES (1,'Admin');
+INSERT INTO role(id,name) VALUES (2,'SUPER_Admin');
+INSERT INTO role(id,name) VALUES (3,'END_USER');
