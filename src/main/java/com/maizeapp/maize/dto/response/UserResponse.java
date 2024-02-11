@@ -13,8 +13,8 @@ public class UserResponse {
 	private String email;
 	private String phoneNumber;
 	private String organization;
-	private Address address;
-	private Role role;
+	private AddressResponse addressResponse;
+	private RoleResponse roleResponse;
 	private List<Long> image;
 	
 	public Long getId() {
@@ -47,17 +47,19 @@ public class UserResponse {
 	public void setOrganization(String organization) {
 		this.organization = organization;
 	}
-	public Address getAddress() {
-		return address;
+	
+	public AddressResponse getAddressResponse() {
+		return addressResponse;
 	}
-	public void setAddress(Address address) {
-		this.address = address;
+	public void setAddressResponse(AddressResponse addressResponse) {
+		this.addressResponse = addressResponse;
 	}
-	public Role getRole() {
-		return role;
+	
+	public RoleResponse getRoleResponse() {
+		return roleResponse;
 	}
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoleResponse(RoleResponse roleResponse) {
+		this.roleResponse = roleResponse;
 	}
 	public List<Long> getImage() {
 		return image;

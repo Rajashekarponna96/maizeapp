@@ -16,7 +16,7 @@ public class FeatureResponse {
 
 	private String code;
 
-	private Role role;
+	private RoleResponse roleResponse;
 
 	public Long getId() {
 		return id;
@@ -42,12 +42,14 @@ public class FeatureResponse {
 		this.code = code;
 	}
 
-	public Role getRole() {
-		return role;
+	public RoleResponse getRoleResponse() {
+		return roleResponse;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoleResponse(RoleResponse roleResponse) {
+		this.roleResponse = roleResponse;
 	}
+
+	
 
 }

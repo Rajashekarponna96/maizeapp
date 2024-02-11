@@ -14,9 +14,9 @@ public class AddressResponse {
 
 	private Long id;
 
-	private State state;
+	private StateResponse stateResponse;
 
-	private City city;
+	private CityResponse cityResponse;
 
 	public Long getId() {
 		return id;
@@ -26,19 +26,21 @@ public class AddressResponse {
 		this.id = id;
 	}
 
-	public State getState() {
-		return state;
+	public StateResponse getStateResponse() {
+		return stateResponse;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStateResponse(StateResponse stateResponse) {
+		this.stateResponse = stateResponse;
 	}
 
-	public City getCity() {
-		return city;
+	public CityResponse getCityResponse() {
+		return cityResponse;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setCityResponse(CityResponse cityResponse) {
+		this.cityResponse = cityResponse;
 	}
+    
+	
 }

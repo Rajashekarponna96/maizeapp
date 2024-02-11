@@ -16,7 +16,7 @@ public class RoleResponse {
 
 	private String name;
 
-	private List<Feature> feature;
+	private List<FeatureResponse> featureResponses;
 
 	public Long getId() {
 		return id;
@@ -34,12 +34,14 @@ public class RoleResponse {
 		this.name = name;
 	}
 
-	public List<Feature> getFeature() {
-		return feature;
+	public List<FeatureResponse> getFeatureResponses() {
+		return featureResponses;
 	}
 
-	public void setFeature(List<Feature> feature) {
-		this.feature = feature;
+	public void setFeatureResponses(List<FeatureResponse> featureResponses) {
+		this.featureResponses = featureResponses;
 	}
+    
+	
 
 }

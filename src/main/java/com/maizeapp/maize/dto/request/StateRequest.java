@@ -6,14 +6,25 @@ import com.maizeapp.maize.entity.Address;
 import com.maizeapp.maize.entity.City;
 
 public class StateRequest {
+	private Long id;
 
 	private String name;
 
 	private String code;
 
-	private List<City> city;
+//	private List<CityRequest> cityRequests;
+//
+//	private List<AddressRequest> addressRequests;
+	
+	
 
-	private List<Address> address;
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -31,20 +42,22 @@ public class StateRequest {
 		this.code = code;
 	}
 
-	public List<City> getCity() {
-		return city;
-	}
+//	public List<CityRequest> getCityRequests() {
+//		return cityRequests;
+//	}
+//
+//	public void setCityRequests(List<CityRequest> cityRequests) {
+//		this.cityRequests = cityRequests;
+//	}
+//
+//	public List<AddressRequest> getAddressRequests() {
+//		return addressRequests;
+//	}
+//
+//	public void setAddressRequests(List<AddressRequest> addressRequests) {
+//		this.addressRequests = addressRequests;
+//	}
 
-	public void setCity(List<City> city) {
-		this.city = city;
-	}
-
-	public List<Address> getAddress() {
-		return address;
-	}
-
-	public void setAddress(List<Address> address) {
-		this.address = address;
-	}
+	
 
 }

@@ -11,7 +11,7 @@ public class ImageRequest {
 	private int height;
 	private long size;
 //  private byte[] imageData;
-	private User user;
+	private UserRequest userRequest;
 	public String getName() {
 		return name;
 	}
@@ -42,12 +42,13 @@ public class ImageRequest {
 	public void setSize(long size) {
 		this.size = size;
 	}
-	public User getUser() {
-		return user;
+	public UserRequest getUserRequest() {
+		return userRequest;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserRequest(UserRequest userRequest) {
+		this.userRequest = userRequest;
 	}
+	
 	
 	
 		

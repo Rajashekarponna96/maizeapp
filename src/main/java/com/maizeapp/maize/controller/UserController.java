@@ -56,11 +56,11 @@ public class UserController {
 		userService.delete(id);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public UserResponse updateUser(@RequestBody UserRequest userRequest, @PathVariable("id") Long id) {
-		userUpdateValidations(userRequest);
-		return userService.updateUser(userRequest, id);
-	}
+//	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+//	public UserResponse updateUser(@RequestBody UserRequest userRequest, @PathVariable("id") Long id) {
+//		userUpdateValidations(userRequest);
+//		return userService.updateUser(userRequest, id);
+//	}
 
 	private void userUpdateValidations(UserRequest userRequest) {
 		if (userRequest.getUsername() == null) {
@@ -106,5 +106,9 @@ public class UserController {
 		// System.out.println(featureResponses.get(0).getName());
 		return featureResponses;
 	}
+	
+
+	
+	
 
 }

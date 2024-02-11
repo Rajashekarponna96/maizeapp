@@ -5,9 +5,21 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
+import com.maizeapp.maize.dto.request.AddressRequest;
+import com.maizeapp.maize.dto.request.CityRequest;
+import com.maizeapp.maize.dto.request.RoleRequest;
+import com.maizeapp.maize.dto.request.StateRequest;
 import com.maizeapp.maize.dto.request.UserRequest;
+import com.maizeapp.maize.dto.response.AddressResponse;
+import com.maizeapp.maize.dto.response.CityResponse;
+import com.maizeapp.maize.dto.response.RoleResponse;
+import com.maizeapp.maize.dto.response.StateResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
+import com.maizeapp.maize.entity.Address;
+import com.maizeapp.maize.entity.City;
 import com.maizeapp.maize.entity.Image;
+import com.maizeapp.maize.entity.Role;
+import com.maizeapp.maize.entity.State;
 import com.maizeapp.maize.entity.User;
 
 @Component
@@ -26,9 +38,34 @@ public class UserBuilder {
 		}
 		user.setPassword(userRequest.getPassword());
 		user.setOrganization(userRequest.getOrganization());
-//		user.setAddress(userRequest.getAddress());
-//		user.setImage(userRequest.getImage());
-//		user.setRole(userRequest.getRole());
+		
+		
+		
+		AddressRequest addressRequest = userRequest.getAddressRequest();
+		Address address = new Address();
+		StateRequest stateRequest = userRequest.getStateRequest();
+		CityRequest cityRequest = userRequest.getCityRequest();
+		State state =new State();
+		City city = new City();
+		state.setId(stateRequest.getId());
+		state.setName(stateRequest.getName());
+		state.setCode(stateRequest.getCode());
+		city.setId(cityRequest.getId());
+		city.setCode(cityRequest.getCode());
+		city.setName(cityRequest.getName());
+	    address.setState(state);
+		address.setCity(city);
+		user.setAddress(address);
+		
+		
+	    user.setImage(userRequest.getImage());
+	    
+	    RoleRequest roleRequest=userRequest.getRoleRequest();
+	    Role role =new Role();
+	    role.setId(roleRequest.getId());
+	    role.setName(roleRequest.getName());
+	    
+	    user.setRole(role);
 	
 		
 		
@@ -42,8 +79,39 @@ public class UserBuilder {
 		userResponse.setPhoneNumber(user.getPhoneNumber());
 		userResponse.setEmail(user.getEmail());
 		userResponse.setOrganization(user.getOrganization());
-		userResponse.setAddress(user.getAddress());
-		userResponse.setRole(user.getRole());
+		
+	      Address address =user.getAddress();
+	      AddressResponse addressResponse = new AddressResponse();
+		  addressResponse.setId(address.getId());
+		  
+		  City city = address.getCity();
+		  State state = address.getState();
+		   
+		  CityResponse cityResponse = new CityResponse();
+		  StateResponse stateResponse = new StateResponse();
+		  cityResponse.setId(city.getId());	
+		  cityResponse.setName(city.getName());
+		  cityResponse.setCode(city.getCode());
+		  
+		  addressResponse.setCityResponse(cityResponse);
+		  
+		  stateResponse.setId(state.getId());
+		  stateResponse.setCode(state.getCode());
+		  stateResponse.setName(state.getName());
+		  addressResponse.setStateResponse(stateResponse);
+		  
+          userResponse.setAddressResponse(addressResponse);
+          
+          
+          Role role = user.getRole();
+          RoleResponse roleResponse = new RoleResponse();
+          roleResponse.setId(role.getId());
+          roleResponse.setName(role.getName());
+          
+          userResponse.setRoleResponse(roleResponse);
+          
+          
+		
 		
 		List<Long> imageIds = new ArrayList<Long>();
 		if(user.getImage()!=null) {

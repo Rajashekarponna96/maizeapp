@@ -14,7 +14,7 @@ public interface UserService {
 
 	public void delete(Long id);
 
-	public UserResponse updateUser(UserRequest userRequest, Long id);
+//	public UserResponse updateUser(UserRequest userRequest, Long id);
 
 	public UserResponse doLogin(UserRequest infoRequest);
 

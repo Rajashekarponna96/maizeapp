@@ -3,9 +3,11 @@ package com.maizeapp.maize.builder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.maizeapp.maize.dto.request.ImageRequest;
+import com.maizeapp.maize.dto.request.UserRequest;
 import com.maizeapp.maize.dto.response.ImageResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.entity.Image;
@@ -13,6 +15,9 @@ import com.maizeapp.maize.entity.User;
 
 @Component
 public class ImageBuilder {
+	@Autowired 
+	private UserBuilder userBuilder;
+	
 	
 	public Image toModel(ImageRequest imageRequest) {
 		
@@ -24,7 +29,16 @@ public class ImageBuilder {
 		image.setSize(imageRequest.getSize());
 //		image.setImageType(imageRequest.getImageType());
 		//image.setImageData(imageRequest.getImageData());
-		image.setUser(imageRequest.getUser());
+		
+//		UserRequest userRequest =imageRequest.getUserRequest();
+//		User user =new User();
+//		user.setId(userRequest.getId());
+//		user.setUsername(userRequest.getUsername();
+//		user.setPhoneNumber(userRequest.getPhoneNumber());
+//		user.setEmail()
+//		
+//		image.setUser(imageRequest.getUserRequest());
+		image.setUser(userBuilder.toModel(imageRequest.getUserRequest()));
 		
 		return image;
 		
@@ -40,7 +54,7 @@ public class ImageBuilder {
 		imageResponse.setSize(image.getSize());
 		//imageResponse.setImageType(image.getImageType());
 		//imageResponse.setImageData(image.getImageData());
-		imageResponse.setUser(image.getUser());
+		imageResponse.setUserResponse(userBuilder.toDo(image.getUser()));
 		
 		return imageResponse;
 	}

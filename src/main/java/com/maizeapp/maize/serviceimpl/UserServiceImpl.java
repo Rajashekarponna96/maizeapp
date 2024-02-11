@@ -51,8 +51,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserResponse create(UserRequest userRequest) {
-
-		if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
+	
+	if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
 			throw new RuntimeException("user email already exists.");
 		}
 		User user = userBuilder.toModel(userRequest);
@@ -60,19 +60,19 @@ public class UserServiceImpl implements UserService {
 
 		user.setRole(roleRepository.findByName(roleName));
 
-		State state = stateRepository.findByName(userRequest.getState());
+		//State state = stateRepository.findByName(userRequest.getAddressRequest().getStateRequest().getName());
 //		if(state == null) {
 //			throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
 //		}
-		City city = cityRepository.findByName(userRequest.getCity());
+		City city = cityRepository.findByName(userRequest.getAddressRequest().getCityRequest().getName());
 //		if(city == null) {
 //			throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
 //		}
-		Address address = new Address();
-		address.setState(state);
-		address.setCity(city);
-		Address address1 = addressRepository.save(address);
-		user.setAddress(address1);
+//		Address address = new Address();
+//		address.setState(state);
+//		address.setCity(city);
+//		Address address1 = addressRepository.save(address);
+//		user.setAddress(address1);
 //		 // userRepository.save(user);
 		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
 		return userResponse;
@@ -108,51 +108,51 @@ public class UserServiceImpl implements UserService {
 //		UserResponse userResponse = userBuilder.toDo(updatedUser);
 //		return userResponse;
 //	}
-	@Override
-	public UserResponse updateUser(UserRequest userRequest, Long id) {
-		Optional<User> existingUserOptional = userRepository.findById(id);
-
-		if (!existingUserOptional.isPresent()) {
-			throw new RuntimeException("User is not existing");
-		}
-
-		User existingUser = existingUserOptional.get();
-
-		existingUser.setUsername(userRequest.getUsername());
-		existingUser.setEmail(userRequest.getEmail());
-		existingUser.setPhoneNumber(userRequest.getPhoneNumber());
-		existingUser.setOrganization(userRequest.getOrganization());
-
-		if (userRequest.getRole() != null) {
-			existingUser.setRole(userRequest.getRole());
-		}
-
-		if (userRequest.getState() != null || userRequest.getCity() != null) {
-			Address address = existingUser.getAddress();
-			if (address == null) {
-				address = new Address();
-				existingUser.setAddress(address);
-			}
-			if (userRequest.getState() != null) {
-				State state = stateRepository.findByName(userRequest.getState());
-				if (state == null) {
-					throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
-				}
-				address.setState(state);
-			}
-			if (userRequest.getCity() != null) {
-				City city = cityRepository.findByName(userRequest.getCity());
-				if (city == null) {
-					throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
-				}
-				address.setCity(city);
-			}
-			addressRepository.save(address);
-		}
-
-		User savedUser = userRepository.save(existingUser);
-		return userBuilder.toDo(savedUser);
-	}
+//	@Override
+//	public UserResponse updateUser(UserRequest userRequest, Long id) {
+//		Optional<User> existingUserOptional = userRepository.findById(id);
+//
+//		if (!existingUserOptional.isPresent()) {
+//			throw new RuntimeException("User is not existing");
+//		}
+//
+//		User existingUser = existingUserOptional.get();
+//
+//		existingUser.setUsername(userRequest.getUsername());
+//		existingUser.setEmail(userRequest.getEmail());
+//		existingUser.setPhoneNumber(userRequest.getPhoneNumber());
+//		existingUser.setOrganization(userRequest.getOrganization());
+//
+//		if (userRequest.getRole() != null) {
+//			existingUser.setRole(userRequest.getRole());
+//		}
+//
+//		if (userRequest.getState() != null || userRequest.getCity() != null) {
+//			Address address = existingUser.getAddress();
+//			if (address == null) {
+//				address = new Address();
+//				existingUser.setAddress(address);
+//			}
+//			if (userRequest.getState() != null) {
+//				State state = stateRepository.findByName(userRequest.getState());
+//				if (state == null) {
+//					throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
+//				}
+//				address.setState(state);
+//			}
+//			if (userRequest.getCity() != null) {
+//				City city = cityRepository.findByName(userRequest.getCity());
+//				if (city == null) {
+//					throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
+//				}
+//				address.setCity(city);
+//			}
+//			addressRepository.save(address);
+//		}
+//
+//		User savedUser = userRepository.save(existingUser);
+//		return userBuilder.toDo(savedUser);
+//	}
 
 	@Override
 	public UserResponse doLogin(UserRequest infoRequest) {

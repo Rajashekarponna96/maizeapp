@@ -6,9 +6,12 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.maizeapp.maize.dto.request.FeatureRequest;
+import com.maizeapp.maize.dto.request.RoleRequest;
 import com.maizeapp.maize.dto.response.FeatureResponse;
+import com.maizeapp.maize.dto.response.RoleResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.entity.Feature;
+import com.maizeapp.maize.entity.Role;
 import com.maizeapp.maize.entity.User;
 @Component
 public class FeatureBuilder {
@@ -20,7 +23,12 @@ public class FeatureBuilder {
 		}
 		feature.setName(featureRequest.getName());
 		feature.setCode(featureRequest.getCode());
-		feature.setRole(featureRequest.getRole());
+		
+		RoleRequest roleRequest = featureRequest.getRoleRequest();
+		  Role role = new Role();
+		  role.setId(roleRequest.getId());
+		  role.setName(roleRequest.getName());
+		  feature.setRole( role);
 		
 		return feature;
 
@@ -30,7 +38,14 @@ public class FeatureBuilder {
 		featureResponse.setId(feature.getId());
 		featureResponse.setName(feature.getName());
 		featureResponse.setCode(feature.getCode());
-		featureResponse.setRole(feature.getRole());
+		
+		Role role = feature.getRole();
+	    RoleResponse roleResponse = new RoleResponse();
+	    roleResponse.setId(role.getId());
+	    roleResponse.setName(role.getName());
+	    
+		
+		featureResponse.setRoleResponse(roleResponse);
 		
 		return featureResponse;
 }

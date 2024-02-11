@@ -20,9 +20,9 @@ public class CityResponse {
 
 	private String code;
 
-	private State state;
+	private StateResponse stateResponse;
 
-	private List<Address> address;
+	private List<AddressResponse> addressResponses;
 
 	public Long getId() {
 		return id;
@@ -48,20 +48,22 @@ public class CityResponse {
 		this.code = code;
 	}
 
-	public State getState() {
-		return state;
+	public StateResponse getStateResponse() {
+		return stateResponse;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStateResponse(StateResponse stateResponse) {
+		this.stateResponse = stateResponse;
 	}
 
-	public List<Address> getAddress() {
-		return address;
+	public List<AddressResponse> getAddressResponses() {
+		return addressResponses;
 	}
 
-	public void setAddress(List<Address> address) {
-		this.address = address;
+	public void setAddressResponses(List<AddressResponse> addressResponses) {
+		this.addressResponses = addressResponses;
 	}
+
+	
 
 }

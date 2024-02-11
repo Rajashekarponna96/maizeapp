@@ -10,7 +10,7 @@ public class FeatureRequest {
 
 	private String code;
 
-	private Role role;
+	private RoleRequest roleRequest;
 
 	public String getName() {
 		return name;
@@ -27,13 +27,15 @@ public class FeatureRequest {
 	public void setCode(String code) {
 		this.code = code;
 	}
+    
+	
 
-	public Role getRole() {
-		return role;
+	public RoleRequest getRoleRequest() {
+		return roleRequest;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRoleRequest(RoleRequest roleRequest) {
+		this.roleRequest = roleRequest;
 	}
 
 	public Long getId() {

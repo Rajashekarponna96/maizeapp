@@ -12,7 +12,7 @@ public class ImageResponse {
 	private int height;
 	private long size;
 //	private byte[] imageData;
-	private User user;
+	private UserResponse userResponse;
 	public long getId() {
 		return id;
 	}
@@ -50,12 +50,13 @@ public class ImageResponse {
 	public void setSize(long size) {
 		this.size = size;
 	}
-	public User getUser() {
-		return user;
+	public UserResponse getUserResponse() {
+		return userResponse;
 	}
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserResponse(UserResponse userResponse) {
+		this.userResponse = userResponse;
 	}
+	
 	
 	
 		

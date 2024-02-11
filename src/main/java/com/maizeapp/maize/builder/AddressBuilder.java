@@ -18,16 +18,16 @@ public class AddressBuilder {
      public Address toModel(AddressRequest addressRequest) {
 		
 	    Address address=new Address();
-	    address.setCity(addressRequest.getCity());
-	    address.setState(addressRequest.getState());
+	    //address.setCity(addressRequest.getCity());
+	    //address.setState(addressRequest.getState());
 	    return address;
     }
 
      public AddressResponse toDto(Address address) {
  		AddressResponse addressResponse =new AddressResponse();
  		addressResponse.setId(address.getId());
- 		addressResponse.setCity(address.getCity());
- 		addressResponse.setState(address.getState());
+ 		//addressResponse.setCity(address.getCity());
+ 		//addressResponse.setState(address.getState());
  		return addressResponse;
  		
      }

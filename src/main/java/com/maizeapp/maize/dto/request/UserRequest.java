@@ -13,11 +13,11 @@ public class UserRequest {
 	private String phoneNumber;
 	private String organization;
 	public String password;
-//	private Address address;
-	private String city;
-	private String state;
+	private AddressRequest addressRequest;
+	private  CityRequest cityRequest;
+	private  StateRequest stateRequest;
 	
-	private Role role;
+	private RoleRequest roleRequest;
 	private List<Image> image;
 
 	private String ChangePasswordRequest;
@@ -78,19 +78,23 @@ public class UserRequest {
 		this.password = password;
 	}
 
-//	public Address getAddress() {
-//		return address;
-//	}
-//
-//	public void setAddress(Address address) {
-//		this.address = address;
-//	}
-	public Role getRole() {
-		return role;
+    
+	public AddressRequest getAddressRequest() {
+		return addressRequest;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setAddressRequest(AddressRequest addressRequest) {
+		this.addressRequest = addressRequest;
+	}
+
+	
+
+	public RoleRequest getRoleRequest() {
+		return roleRequest;
+	}
+
+	public void setRoleRequest(RoleRequest roleRequest) {
+		this.roleRequest = roleRequest;
 	}
 
 	public List<Image> getImage() {
@@ -101,21 +105,24 @@ public class UserRequest {
 		this.image = image;
 	}
 
-	public String getCity() {
-		return city;
+	public CityRequest getCityRequest() {
+		return cityRequest;
 	}
 
-	public void setCity(String city) {
-		this.city = city;
+	public void setCityRequest(CityRequest cityRequest) {
+		this.cityRequest = cityRequest;
 	}
 
-	public String getState() {
-		return state;
+	public StateRequest getStateRequest() {
+		return stateRequest;
 	}
 
-	public void setState(String state) {
-		this.state = state;
+	public void setStateRequest(StateRequest stateRequest) {
+		this.stateRequest = stateRequest;
 	}
+	
+
+	
 	
 
 }

@@ -5,24 +5,25 @@ import com.maizeapp.maize.entity.State;
 
 public class AddressRequest {
 
-	private State state;
+	private StateRequest stateRequest;
 
-	private City city;
+	private CityRequest cityRequest;
 
-	public State getState() {
-		return state;
+	public StateRequest getStateRequest() {
+		return stateRequest;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStateRequest(StateRequest stateRequest) {
+		this.stateRequest = stateRequest;
 	}
 
-	public City getCity() {
-		return city;
+	public CityRequest getCityRequest() {
+		return cityRequest;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setCityRequest(CityRequest cityRequest) {
+		this.cityRequest = cityRequest;
 	}
 
+	
 }
