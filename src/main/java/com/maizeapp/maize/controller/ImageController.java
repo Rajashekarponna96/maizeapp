@@ -19,6 +19,7 @@ import com.maizeapp.maize.dto.response.ImageResponse;
 import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.repository.UserRepository;
 import com.maizeapp.maize.serviceimpl.ImageServiceImpl;
+
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping(value = "/image")
@@ -29,31 +30,30 @@ public class ImageController {
 	private ImageBuilder imageBuilder;
 	@Autowired
 	private UserRepository userRepository;
-	
-	
-	
+
 	@GetMapping("/users/{userId}/images")
-	    public List<Image> getUserImages(@PathVariable("userId") Long userId) {
-	        return imageService.getUserImages(userId);
-	    }
+	public List<Image> getUserImages(@PathVariable("userId") Long userId) {
+		return imageService.getUserImages(userId);
+	}
 
 	@PostMapping("/uploads")
 	public Image uploadImage(@RequestParam("file") MultipartFile file) throws IOException {
 		return imageService.saveImageDetails(file);
 	}
-	
+
 	@PostMapping("/uploads1/{id}")
-	public Image uploadImage1(@RequestParam("file") MultipartFile file,@PathVariable("id") Long id) throws IOException {
-		validateRequiredAttributes(file,id);
-		return imageService.saveImageDetails1(file,id);
+	public Image uploadImage1(@RequestParam("file") MultipartFile file, @PathVariable("id") Long id)
+			throws IOException {
+		validateRequiredAttributes(file, id);
+		return imageService.saveImageDetails1(file, id);
 	}
 
 	private void validateRequiredAttributes(MultipartFile file, Long id) {
-		if(id == null) {
-			throw new RuntimeException("userId "+id +"is not found");
+		if (id == null) {
+			throw new RuntimeException("userId " + id + "is not found");
 		}
-		if(file.isEmpty()) {
-			throw new RuntimeException(" The file "+file +"has no content");
+		if (file.isEmpty()) {
+			throw new RuntimeException(" The file " + file + "has no content");
 		}
 	}
 
@@ -88,9 +88,9 @@ public class ImageController {
 //} 
 //	
 //	
-	@RequestMapping(value="/list",method = RequestMethod.GET)
-	public List<ImageResponse> ImageList(){
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public List<ImageResponse> ImageList() {
 		return imageService.imageList();
-		
+
 	}
 }

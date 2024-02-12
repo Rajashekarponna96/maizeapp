@@ -5,8 +5,10 @@ import java.util.List;
 import com.maizeapp.maize.entity.City;
 
 public interface CityService {
-	 public List<City>  cityList();
-	 public  List<City>  cityListByName(String statename);
-	 public List<City> listOfCityesByStateId(Long id);
+	public List<City> cityList();
+
+	public List<City> cityListByName(String statename);
+
+	public List<City> listOfCityesByStateId(Long id);
 
 }

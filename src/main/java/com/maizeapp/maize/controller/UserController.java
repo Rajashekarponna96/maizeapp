@@ -56,6 +56,7 @@ public class UserController {
 		userService.delete(id);
 	}
 
+	//update role,state,city
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public UserResponse updateUser(@RequestBody UserRequest userRequest, @PathVariable("id") Long id) {
 		userUpdateValidations(userRequest);
@@ -86,11 +87,6 @@ public class UserController {
 		}
 	}
 
-//	@RequestMapping(value = "/password/{userId}",method =RequestMethod.PUT)
-//	public void changePassword(@PathVariable("userId") Long userId, @RequestBody ChangePassword changePasswordRequest) {
-//		userService.changePassword(userId, changePasswordRequest);
-//	}
-
 	// change password
 	@RequestMapping(value = "/changePassword/{oldPassword}/{newPassword}", method = RequestMethod.POST)
 	public void changePassword(@PathVariable("oldPassword") String oldPassword,
@@ -100,6 +96,7 @@ public class UserController {
 		userService.changePassword(oldPassword, newPassword);
 	}
 
+	
 	@RequestMapping(value = "/{userid}/features", method = RequestMethod.GET)
 	public List<FeatureResponse> userFeatures(@PathVariable("userid") Long userId) {
 		List<FeatureResponse> featureResponses = userService.userFeatures(userId);

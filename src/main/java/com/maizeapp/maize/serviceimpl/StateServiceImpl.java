@@ -10,13 +10,13 @@ import com.maizeapp.maize.repository.StateRepository;
 import com.maizeapp.maize.service.StateService;
 
 @Service
-public class StateServiceImpl  implements StateService{
+public class StateServiceImpl implements StateService {
 	@Autowired
 	private StateRepository stateRepository;
 
 	@Override
 	public List<State> stateList() {
-		
+
 		return stateRepository.findAll();
 	}
 

@@ -17,12 +17,10 @@ import com.maizeapp.maize.service.StateService;
 public class StateController {
 	@Autowired
 	private StateService stateService;
-	
-	@RequestMapping(value = "/list",method = RequestMethod.GET)
-	private List<State>  stateList(){
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	private List<State> stateList() {
 		return stateService.stateList();
 	}
-   
-	
 
 }

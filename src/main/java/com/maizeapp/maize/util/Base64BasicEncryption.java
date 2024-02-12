@@ -3,6 +3,7 @@ package com.maizeapp.maize.util;
 import java.util.Base64;
 
 import org.springframework.stereotype.Component;
+
 @Component
 public class Base64BasicEncryption {
 

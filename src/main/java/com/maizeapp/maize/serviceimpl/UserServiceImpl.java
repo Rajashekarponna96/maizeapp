@@ -53,30 +53,34 @@ public class UserServiceImpl implements UserService {
 	public UserResponse create(UserRequest userRequest) {
 
 		if (userRepository.findByEmail(userRequest.getEmail()).isPresent()) {
-			throw new RuntimeException("user email already exists.");
+			throw new RuntimeException("User email already exists.");
 		}
+
+		// Check if the state exists
+		State state = stateRepository.findByName(userRequest.getState());
+		if (state == null) {
+			throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
+		}
+
+		// Check if the city exists
+		City city = cityRepository.findByName(userRequest.getCity());
+		if (city == null) {
+			throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
+		}
+
 		User user = userBuilder.toModel(userRequest);
 		String roleName = "END_USER";
-
 		user.setRole(roleRepository.findByName(roleName));
 
-		State state = stateRepository.findByName(userRequest.getState());
-//		if(state == null) {
-//			throw new RuntimeException("State with name " + userRequest.getState() + " not found.");
-//		}
-		City city = cityRepository.findByName(userRequest.getCity());
-//		if(city == null) {
-//			throw new RuntimeException("City with name " + userRequest.getCity() + " not found.");
-//		}
 		Address address = new Address();
 		address.setState(state);
 		address.setCity(city);
-		Address address1 = addressRepository.save(address);
-		user.setAddress(address1);
-//		 // userRepository.save(user);
+		Address savedAddress = addressRepository.save(address);
+		user.setAddress(savedAddress);
+
+		// Save the user and construct the response
 		UserResponse userResponse = userBuilder.toDo(userRepository.save(user));
 		return userResponse;
-
 	}
 
 	@Override
@@ -94,20 +98,7 @@ public class UserServiceImpl implements UserService {
 		userRepository.deleteById(id);
 	}
 
-	// @Override
-//	public UserResponse updateUser(UserRequest userRequest, Long id) {
-//
-//		Optional<User> existingUserOptional = userRepository.findById(userRequest.getId());
-//
-//		if (!existingUserOptional.isPresent()) {
-//			throw new RuntimeException("user is not exiting");
-//		}
-//
-//		User user = userBuilder.toModel(userRequest);
-//		User updatedUser = userRepository.save(user);
-//		UserResponse userResponse = userBuilder.toDo(updatedUser);
-//		return userResponse;
-//	}
+	// update the feilds role state city
 	@Override
 	public UserResponse updateUser(UserRequest userRequest, Long id) {
 		Optional<User> existingUserOptional = userRepository.findById(id);
@@ -166,126 +157,6 @@ public class UserServiceImpl implements UserService {
 //		}
 		UserResponse response = userBuilder.toDo(userInfo);
 		return response;
-	}
-
-//	@Override
-//	public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-//		User user = userRepository.findById(userId).orElseThrow(() -> new NotFoundException("User not found"));
-//
-//		String oldPassword = changePasswordRequest.getOldPassword();
-//		String newPassword = changePasswordRequest.getNewPassword();
-//
-//		// Verify old password
-//		if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-//			throw new InvalidPasswordException("Old password is incorrect");
-//		}
-//
-//		// Encrypt the new password
-//		String encryptedPassword = passwordEncoder.encode(newPassword);
-//
-//		// Update user's password
-//		user.setPassword(encryptedPassword);
-//		userRepository.save(user);
-//	}
-
-//
-//@Override
-//public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-//    User user = userRepository.findById(userId)
-//            .orElseThrow(() -> new EmptyResultDataAccessException(1));
-//
-//    String oldPassword = changePasswordRequest.getOldPassword();
-//    String newPassword = changePasswordRequest.getNewPassword();
-//
-//    // Verify old password
-////    if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-////        throw new InvalidPasswordException("Old password is incorrect");
-////    }
-//    if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
-//        throw new InvalidPasswordException("Old password is incorrect");
-//    }
-//
-//
-//    // Encrypt the new password
-//    String encryptedPassword = passwordEncoder.encode(newPassword);
-//
-//    // Update user's password
-//    user.setPassword(encryptedPassword);
-//    userRepository.save(user);
-//}
-
-//@Override
-//public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-//    User user = userRepository.findById(userId)
-//            .orElseThrow(() -> new EmptyResultDataAccessException(1));
-//
-//    String oldPassword = encodeBase64(changePasswordRequest.getOldPassword());
-//    String newPassword = encodeBase64(changePasswordRequest.getNewPassword());
-//
-//    // Verify old password
-//    if (!oldPassword.equals(user.getPassword())) {
-//        throw new InvalidPasswordException("Old password is incorrect");
-//    }
-//
-//    // Encrypt the new password
-//    String encryptedPassword = encodeBase64(passwordEncoder.encode(newPassword));
-//
-//    // Update user's password
-//    user.setPassword(encryptedPassword);
-//    userRepository.save(user);
-//}
-//
-//private String encodeBase64(String input) {
-//    return Base64.getEncoder().encodeToString(input.getBytes());
-//}
-//
-
-//	@Override
-//	public void changePassword(Long userId, ChangePassword changePasswordRequest) {
-//	    User user = userRepository.findById(userId)
-//	            .orElseThrow(() -> new EmptyResultDataAccessException(1));
-//	    
-//	    if(changePasswordRequest.getOldPassword()!=user.getPassword()) {
-//	    	user.setPassword(changePasswordRequest.getNewPassword() );
-//		    userRepository.save(user);
-//	    }else {
-//	    	 throw new InvalidPasswordException("Old password is incorrect");
-//	    }
-
-////	    String oldPassword = encodeBase64(changePasswordRequest.getOldPassword());
-////	    String newPassword = encodeBase64(changePasswordRequest.getNewPassword());
-//	    String oldPassword = changePasswordRequest.getOldPassword();
-//	    String newPassword = changePasswordRequest.getNewPassword();
-//
-//	    // Verify old password
-//	    if (!oldPassword.equals(user.getPassword())) {
-//	        throw new InvalidPasswordException("Old password is incorrect");
-//	    }
-//
-////	    // Hash the new password
-////	    String hashedNewPassword = hashPassword(changePasswordRequest.getNewPassword());
-////
-////	    // Update user's password
-//	    user.setPassword(newPassword );
-//	    userRepository.save(user);
-//	}
-
-	private String encodeBase64(String input) {
-		return Base64.getEncoder().encodeToString(input.getBytes());
-	}
-
-	private String hashPassword(String password) {
-		// Use a secure hashing algorithm like SHA-256
-		// Here's an example using SHA-256
-		try {
-			MessageDigest digest = MessageDigest.getInstance("SHA-256");
-			byte[] hashBytes = digest.digest(password.getBytes(StandardCharsets.UTF_8));
-			return Base64.getEncoder().encodeToString(hashBytes);
-		} catch (NoSuchAlgorithmException e) {
-			// Handle the exception appropriately
-			e.printStackTrace();
-			return null;
-		}
 	}
 
 	@Override

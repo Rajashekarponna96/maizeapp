@@ -22,7 +22,6 @@ import com.maizeapp.maize.entity.User;
 import com.maizeapp.maize.repository.ImageRepository;
 import com.maizeapp.maize.repository.UserRepository;
 
-
 @Service
 public class ImageServiceImpl {
 
@@ -36,12 +35,11 @@ public class ImageServiceImpl {
 	@Autowired
 	private ImageRepository imageRepository;
 
-	
 	// @Override
-	    public List<Image> getUserImages(Long userId) {
-	        return imageRepository.findByUserId(userId);
-	    }
- 
+	public List<Image> getUserImages(Long userId) {
+		return imageRepository.findByUserId(userId);
+	}
+
 	@Transactional
 	public Image saveImageDetails(MultipartFile file) throws IOException {
 		Image imageDetails = new Image();
@@ -79,12 +77,12 @@ public class ImageServiceImpl {
 	}
 
 	//
-	
+
 	@Transactional
-	public Image saveImageDetails1(MultipartFile file,Long id) throws IOException {
-		Optional<User> user =userRepository.findById(id);
-		if(!user.isPresent()) {
-			 throw new RuntimeException("user not present.");
+	public Image saveImageDetails1(MultipartFile file, Long id) throws IOException {
+		Optional<User> user = userRepository.findById(id);
+		if (!user.isPresent()) {
+			throw new RuntimeException("user not present.");
 		}
 		Image imageDetails = new Image();
 		imageDetails.setName(file.getOriginalFilename());
@@ -103,13 +101,13 @@ public class ImageServiceImpl {
 
 		return imageDetails;
 	}
-	
+
 	public List<ImageResponse> imageList() {
 		List<Image> imageList = imageRepository.findAll();
 		List<ImageResponse> imageListResponse = imageBuilder.toDoList(imageList);
-		
+
 		return imageListResponse;
-		
+
 	}
 
 }

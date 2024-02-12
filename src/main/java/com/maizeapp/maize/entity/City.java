@@ -15,7 +15,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="city")
+@Table(name = "city")
 public class City {
 
 	@Id
@@ -23,13 +23,13 @@ public class City {
 	private Long id;
 	private String name;
 	private String code;
-	
+
 	@JsonBackReference
-	@ManyToOne(cascade = CascadeType.ALL,targetEntity = State.class)
-	@JoinColumn(name="state_id")
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = State.class)
+	@JoinColumn(name = "state_id")
 	private State state;
-	
-	@OneToMany(mappedBy="city",cascade=CascadeType.ALL)
+
+	@OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
 	private List<Address> address;
 
 	public Long getId() {
@@ -71,6 +71,5 @@ public class City {
 	public void setAddress(List<Address> address) {
 		this.address = address;
 	}
-	
-	
+
 }

@@ -4,12 +4,6 @@ import java.util.List;
 
 import com.maizeapp.maize.entity.Feature;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-
 public class RoleResponse {
 
 	private Long id;
