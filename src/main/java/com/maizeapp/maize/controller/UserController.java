@@ -3,6 +3,8 @@ package com.maizeapp.maize.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +16,7 @@ import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
 import com.maizeapp.maize.dto.request.UserRequest;
+import com.maizeapp.maize.dto.response.AddressResponse;
 import com.maizeapp.maize.dto.response.FeatureResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.service.UserService;
@@ -45,6 +48,12 @@ public class UserController {
 
 	}
 
+	@RequestMapping(value = "/{userId}/address", method = RequestMethod.GET)
+	public ResponseEntity<AddressResponse> getUserAddress(@PathVariable("userId") Long userId) {
+		AddressResponse addressResponse = userService.getUserAddress(userId);
+		return new ResponseEntity<>(addressResponse, HttpStatus.OK);
+	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public List<UserResponse> userList() {
 		return userService.userList();
@@ -56,7 +65,7 @@ public class UserController {
 		userService.delete(id);
 	}
 
-	//update role,state,city
+	// update role,state,city
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
 	public UserResponse updateUser(@RequestBody UserRequest userRequest, @PathVariable("id") Long id) {
 		userUpdateValidations(userRequest);
@@ -96,7 +105,6 @@ public class UserController {
 		userService.changePassword(oldPassword, newPassword);
 	}
 
-	
 	@RequestMapping(value = "/{userid}/features", method = RequestMethod.GET)
 	public List<FeatureResponse> userFeatures(@PathVariable("userid") Long userId) {
 		List<FeatureResponse> featureResponses = userService.userFeatures(userId);

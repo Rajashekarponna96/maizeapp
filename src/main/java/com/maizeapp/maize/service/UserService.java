@@ -3,6 +3,7 @@ package com.maizeapp.maize.service;
 import java.util.List;
 
 import com.maizeapp.maize.dto.request.UserRequest;
+import com.maizeapp.maize.dto.response.AddressResponse;
 import com.maizeapp.maize.dto.response.FeatureResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
 
@@ -21,5 +22,7 @@ public interface UserService {
 	void changePassword(String oldPassword, String newPassword);
 
 	public List<FeatureResponse> userFeatures(Long userId);
+	
+	public AddressResponse getUserAddress(Long userId);
 
 }

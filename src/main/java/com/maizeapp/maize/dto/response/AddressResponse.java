@@ -7,9 +7,9 @@ public class AddressResponse {
 
 	private Long id;
 
-	private State state;
+	private StateResponse stateresponse;
 
-	private City city;
+	private CityResponse cityresponse;
 
 	public Long getId() {
 		return id;
@@ -19,19 +19,21 @@ public class AddressResponse {
 		this.id = id;
 	}
 
-	public State getState() {
-		return state;
+	public StateResponse getStateresponse() {
+		return stateresponse;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setStateresponse(StateResponse stateresponse) {
+		this.stateresponse = stateresponse;
 	}
 
-	public City getCity() {
-		return city;
+	public CityResponse getCityresponse() {
+		return cityresponse;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setCityresponse(CityResponse cityresponse) {
+		this.cityresponse = cityresponse;
 	}
+
+	
 }

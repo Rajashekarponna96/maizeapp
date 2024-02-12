@@ -1,9 +1,5 @@
 package com.maizeapp.maize.serviceimpl;
 
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +11,10 @@ import com.maizeapp.maize.builder.UserBuilder;
 import com.maizeapp.maize.commonexceptions.CommonException;
 import com.maizeapp.maize.commonexceptions.CommonExceptionMessage;
 import com.maizeapp.maize.dto.request.UserRequest;
+import com.maizeapp.maize.dto.response.AddressResponse;
+import com.maizeapp.maize.dto.response.CityResponse;
 import com.maizeapp.maize.dto.response.FeatureResponse;
+import com.maizeapp.maize.dto.response.StateResponse;
 import com.maizeapp.maize.dto.response.UserResponse;
 import com.maizeapp.maize.entity.Address;
 import com.maizeapp.maize.entity.City;
@@ -83,6 +82,37 @@ public class UserServiceImpl implements UserService {
 		return userResponse;
 	}
 
+	
+	@Override
+	public AddressResponse getUserAddress(Long userId) {
+	    Optional<User> userOptional = userRepository.findById(userId);
+	    if (userOptional.isPresent()) {
+	        User user = userOptional.get();
+	        Address address = user.getAddress();
+	        if (address != null) {
+	            AddressResponse addressResponse = new AddressResponse();
+	            addressResponse.setId(address.getId());
+
+	            // Populate StateResponse
+	            StateResponse stateResponse = new StateResponse();
+	            stateResponse.setId(address.getState().getId());
+	            stateResponse.setName(address.getState().getName());
+	            addressResponse.setStateresponse(stateResponse);
+
+	            // Populate CityResponse
+	            CityResponse cityResponse = new CityResponse();
+	            cityResponse.setId(address.getCity().getId());
+	            cityResponse.setName(address.getCity().getName());
+	            addressResponse.setCityresponse(cityResponse);
+
+	            return addressResponse;
+	        } else {
+	            throw new RuntimeException("User's address not found");
+	        }
+	    } else {
+	        throw new RuntimeException("User not found");
+	    }
+	}
 	@Override
 	public List<UserResponse> userList() {
 
