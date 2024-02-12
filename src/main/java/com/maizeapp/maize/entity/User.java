@@ -35,14 +35,11 @@ public class User {
 	private List<Image> image;
 	@JsonIgnore
 	@ManyToOne
-	@JoinColumn(name="role_id",referencedColumnName = "id")
+	@JoinColumn(name = "role_id", referencedColumnName = "id")
 	private Role role;
-	
-	
-	
 
 	public User() {
-		
+
 	}
 
 	public Long getId() {
@@ -100,6 +97,7 @@ public class User {
 	public void setAddress(Address address) {
 		this.address = address;
 	}
+
 //	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 //	@JsonIgnore
 	public List<Image> getImage() {
@@ -124,8 +122,5 @@ public class User {
 				+ ", organization=" + organization + ", password=" + password + ", address=" + address + ", role="
 				+ role + "]";
 	}
-	
-	
-	
 
 }

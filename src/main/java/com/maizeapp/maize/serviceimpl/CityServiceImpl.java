@@ -13,39 +13,38 @@ import com.maizeapp.maize.repository.StateRepository;
 import com.maizeapp.maize.service.CityService;
 
 @Service
-public class CityServiceImpl  implements CityService{
+public class CityServiceImpl implements CityService {
 	@Autowired
 	private CityRepository cityRepository;
-	
+
 	@Autowired
 	private StateRepository stateRepository;
 
 	@Override
 	public List<City> cityList() {
-		
+
 		return cityRepository.findAll();
 	}
 
 	@Override
 	public List<City> cityListByName(String statename) {
 		State state = stateRepository.findByName(statename);
-		if(state == null)
-		{
+		if (state == null) {
 			throw new RuntimeException("state name  " + statename + " is not found.");
 		}
-		
+
 		return cityRepository.findByStateId(state.getId());
 	}
 
 	@Override
 	public List<City> listOfCityesByStateId(Long id) {
 		Optional<State> state = stateRepository.findById(id);
-		
-		if(state==null) {
-			throw new RuntimeException("userid " +id+ "is not present");
+
+		if (state == null) {
+			throw new RuntimeException("userid " + id + "is not present");
 		}
-		State state1 =state.get();
-		
+		State state1 = state.get();
+
 		return cityRepository.findByStateId(state1.getId());
 	}
 

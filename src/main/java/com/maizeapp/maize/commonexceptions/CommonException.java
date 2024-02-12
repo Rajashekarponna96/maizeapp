@@ -1,7 +1,6 @@
 package com.maizeapp.maize.commonexceptions;
 
-
-public class CommonException extends RuntimeException{
+public class CommonException extends RuntimeException {
 
 	/**
 	 * 
@@ -17,7 +16,4 @@ public class CommonException extends RuntimeException{
 		return new CommonException(String.format(format, paramaters));
 	}
 
-	
-	
-	
 }

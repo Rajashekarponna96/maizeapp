@@ -12,18 +12,18 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="address")
+@Table(name = "address")
 public class Address {
-	@Id 
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@JsonBackReference
-	@ManyToOne(cascade = CascadeType.ALL,targetEntity = State.class)
-	@JoinColumn(name="state_id")
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = State.class)
+	@JoinColumn(name = "state_id")
 	private State state;
 	@JsonBackReference
-	@ManyToOne(cascade = CascadeType.ALL,targetEntity = City.class)
-	@JoinColumn(name="city_id")
+	@ManyToOne(cascade = CascadeType.ALL, targetEntity = City.class)
+	@JoinColumn(name = "city_id")
 	private City city;
 
 	public Long getId() {
@@ -49,8 +49,5 @@ public class Address {
 	public void setCity(City city) {
 		this.city = city;
 	}
-	
-	
-	
 
 }

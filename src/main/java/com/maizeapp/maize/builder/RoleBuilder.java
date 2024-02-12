@@ -7,11 +7,10 @@ import com.maizeapp.maize.entity.Role;
 
 @Component
 public class RoleBuilder {
-	
+
 	public Role toModel(RoleRequest roleRequest) {
-		Role  role = new Role();
-	     return null;
+		Role role = new Role();
+		return null;
 	}
-	
 
 }

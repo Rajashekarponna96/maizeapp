@@ -2,7 +2,6 @@ package com.maizeapp.maize.dto.request;
 
 import java.util.List;
 
-import com.maizeapp.maize.entity.Address;
 import com.maizeapp.maize.entity.Image;
 import com.maizeapp.maize.entity.Role;
 
@@ -16,7 +15,7 @@ public class UserRequest {
 //	private Address address;
 	private String city;
 	private String state;
-	
+
 	private Role role;
 	private List<Image> image;
 
@@ -116,6 +115,5 @@ public class UserRequest {
 	public void setState(String state) {
 		this.state = state;
 	}
-	
 
 }
